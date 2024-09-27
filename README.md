@@ -1,0 +1,2 @@
+# minestom-mines
+ 
