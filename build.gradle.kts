@@ -19,6 +19,8 @@ dependencies {
     implementation("net.minestom:minestom-snapshots:d0754f2a15")
 
     implementation("redis.clients:jedis:5.2.0")
+    implementation("com.google.guava:guava:33.3.1-jre")
+
 
 }
 

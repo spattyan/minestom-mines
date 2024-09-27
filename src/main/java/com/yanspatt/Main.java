@@ -3,7 +3,12 @@ package com.yanspatt;
 import com.yanspatt.benchmark.ServerBenchmark;
 import com.yanspatt.controller.EventController;
 import com.yanspatt.controller.InstanceController;
-import com.yanspatt.redis.RedisManager;
+import com.yanspatt.controller.UserController;
+import com.yanspatt.manager.RedisManager;
+import com.yanspatt.model.user.User;
+import com.yanspatt.repository.cache.UserCache;
+import com.yanspatt.repository.redis.UserRedisRepository;
+import com.yanspatt.service.UserService;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.velocity.VelocityProxy;
@@ -18,6 +23,9 @@ public class Main {
 
     @Getter
     private static RedisManager redisManager;
+
+    @Getter
+    private static UserController userController;
 
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
@@ -38,14 +46,16 @@ public class Main {
             }
         }
 
+        redisManager = new RedisManager();
+
+        redisManager.initConnectionPool();
+
+        userController = new UserController(new UserService(new UserCache(),new UserRedisRepository(redisManager.getPool())));
+
         instanceController = new InstanceController();
 
         eventController = new EventController();
         eventController.registerEvents();
-
-        redisManager = new RedisManager();
-
-        redisManager.initConnectionPool();
 
         ServerBenchmark benchmark = new ServerBenchmark();
         benchmark.setup();

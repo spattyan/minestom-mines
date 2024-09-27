@@ -1,13 +1,15 @@
 package com.yanspatt.controller;
 
+import com.yanspatt.Main;
 import com.yanspatt.listener.GenericEventListener;
-import com.yanspatt.listener.impl.AsyncPlayerConfigurationListener;
+import com.yanspatt.listener.impl.player.AsyncPlayerConfigurationListener;
 import com.yanspatt.listener.impl.PlayerPacketListener;
 import com.yanspatt.listener.impl.PlayerPacketOutListener;
+import com.yanspatt.listener.impl.player.PlayerDisconnectListener;
+import com.yanspatt.listener.impl.player.PlayerSpawnListener;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EventController {
@@ -19,7 +21,9 @@ public class EventController {
         this.eventListeners = List.of(
                 new AsyncPlayerConfigurationListener(),
                 new PlayerPacketListener(),
-                new PlayerPacketOutListener()
+                new PlayerPacketOutListener(),
+                new PlayerSpawnListener(Main.getUserController()),
+                new PlayerDisconnectListener(Main.getUserController())
         );
     }
 
