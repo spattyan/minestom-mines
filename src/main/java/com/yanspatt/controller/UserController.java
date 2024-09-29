@@ -1,5 +1,6 @@
 package com.yanspatt.controller;
 
+import com.yanspatt.model.pickaxe.Pickaxe;
 import com.yanspatt.model.user.User;
 import com.yanspatt.service.UserService;
 
@@ -15,24 +16,20 @@ public class UserController {
 
     public User createUser(String username) {
         User user = new User(username);
-        userService.saveUser(user); // Salva o usuário
-        return user;
+        Pickaxe pickaxe = new Pickaxe();
+
+        user.setPickaxe(pickaxe);
+
+
+        userService.saveUser(user);return user;
     }
 
     public Optional<User> getUser(String username) {
         Optional<User> userOptional = userService.getUser(username);
-        if (userOptional.isPresent()) {
-           // User user = userOptional.get();
-
-            // TODO setar picareta e mina no jogador by services
-            //Optional<Pickaxe> pickaxeOptional = pickaxeService.getPickaxe(user.getUsername());
-            //pickaxeOptional.ifPresent(user::setPickaxe);
-        }
         return userOptional;
     }
 
     public void saveUser(User user) {
-        userService.saveUser(user);
-    }
+        userService.saveUser(user);}
 
 }

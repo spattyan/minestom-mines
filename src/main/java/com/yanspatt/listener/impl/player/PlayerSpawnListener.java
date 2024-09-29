@@ -1,5 +1,6 @@
 package com.yanspatt.listener.impl.player;
 
+import com.yanspatt.MinesServer;
 import com.yanspatt.controller.UserController;
 import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.model.user.User;
@@ -28,7 +29,11 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                         event.getPlayer().sendMessage("Welcome back, " + event.getPlayer().getUsername());
                     } else {
                         event.getPlayer().sendMessage("Welcome, " + event.getPlayer().getUsername());
+                        user = Optional.of(userController.createUser(event.getPlayer().getUsername()));
                     }
+
+                    MinesServer.getInstance().getPickaxeFactory().givePickaxe(user.get(), event.getPlayer());
+
                 })
                 .build();
     }

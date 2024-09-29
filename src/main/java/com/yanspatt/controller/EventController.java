@@ -1,12 +1,11 @@
 package com.yanspatt.controller;
 
 import com.yanspatt.Main;
+import com.yanspatt.MinesServer;
 import com.yanspatt.listener.GenericEventListener;
-import com.yanspatt.listener.impl.player.AsyncPlayerConfigurationListener;
+import com.yanspatt.listener.impl.player.*;
 import com.yanspatt.listener.impl.PlayerPacketListener;
 import com.yanspatt.listener.impl.PlayerPacketOutListener;
-import com.yanspatt.listener.impl.player.PlayerDisconnectListener;
-import com.yanspatt.listener.impl.player.PlayerSpawnListener;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
 
@@ -17,13 +16,15 @@ public class EventController {
     @Getter
     private List<GenericEventListener> eventListeners;
 
-    public EventController() {
+    public EventController(MinesServer minesServer) {
         this.eventListeners = List.of(
                 new AsyncPlayerConfigurationListener(),
                 new PlayerPacketListener(),
                 new PlayerPacketOutListener(),
-                new PlayerSpawnListener(Main.getUserController()),
-                new PlayerDisconnectListener(Main.getUserController())
+                new PlayerSpawnListener(minesServer.getUserController()),
+                new PlayerDisconnectListener(minesServer.getUserController()),
+                new PlayerBlockBreakListener(minesServer.getUserController()),
+                new PlayerChatListener(minesServer.getUserController())
         );
     }
 

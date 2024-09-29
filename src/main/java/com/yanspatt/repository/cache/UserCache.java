@@ -27,7 +27,7 @@ public class UserCache {
     }
 
     public void invalidateUser(String username) {
-        cache.invalidate(username);
+        cache.invalidate(username.toLowerCase());
     }
 
 }

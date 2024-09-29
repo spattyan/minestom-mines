@@ -23,9 +23,7 @@ public class UserService {
         }
 
         Optional<User> redisUser = userRedisRepository.get(username);
-        redisUser.ifPresentOrElse(user -> userCache.cacheUser(username, user), () -> {
-            userRedisRepository.save(new User(username));
-        });
+        redisUser.ifPresent(user -> userCache.cacheUser(username, user));
 
         return redisUser;
     }

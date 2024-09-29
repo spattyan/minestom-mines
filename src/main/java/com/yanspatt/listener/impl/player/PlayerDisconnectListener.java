@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public class PlayerDisconnectListener  implements GenericEventListener<PlayerDisconnectEvent> {
+public class PlayerDisconnectListener implements GenericEventListener<PlayerDisconnectEvent> {
 
     private UserController userController;
 
