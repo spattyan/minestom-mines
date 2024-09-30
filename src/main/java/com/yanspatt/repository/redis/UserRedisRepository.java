@@ -31,16 +31,7 @@ public class UserRedisRepository {
                 return Optional.empty();
             }
 
-            User user = new User(entries.get("username"));
-            user.setBlocksMined(Integer.parseInt(entries.get("blocksMined")));
-            user.setTokens(Integer.parseInt(entries.get("tokens")));
-            user.setLevel(Integer.parseInt(entries.get("level")));
-
-            String pickaxe = entries.get("pickaxe");
-            if (pickaxe != null) {
-                user.setPickaxe(gson.fromJson(pickaxe, Pickaxe.class));
-            }
-
+            User user = gson.fromJson(entries.get(username), User.class);
 
             return Optional.of(user);
         } catch (Exception e) {
@@ -54,6 +45,10 @@ public class UserRedisRepository {
         String key = getKey(user.getUsername());
 
         try (Jedis jedis = pool.getResource()) {
+            // TODO convert user to single key
+
+            jedis.hset(key, user.getUsername().toLowerCase(), gson.toJson(user));
+
 
             Transaction transaction = jedis.multi();
             transaction.hset(key, "username", user.getUsername());
@@ -73,7 +68,7 @@ public class UserRedisRepository {
     }
 
     public String getKey(String username) {
-        return "rankup01:mines:" + username.toLowerCase() +":data";
+        return "rankup01:mines:users";
     }
 
 }
