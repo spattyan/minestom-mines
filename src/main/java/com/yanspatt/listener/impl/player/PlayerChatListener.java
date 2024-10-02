@@ -44,8 +44,6 @@ public class PlayerChatListener implements GenericEventListener<PlayerChatEvent>
                             event.getPlayer().sendMessage("Removed enchantment " + enchantment.getName());
                         }
 
-
-
                         MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, event.getPlayer());
                     });
                 })

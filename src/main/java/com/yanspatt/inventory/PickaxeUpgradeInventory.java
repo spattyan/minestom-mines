@@ -8,6 +8,7 @@ import com.yanspatt.util.inventory.CustomInventory;
 import com.yanspatt.util.inventory.contents.InventoryContents;
 import com.yanspatt.util.inventory.contents.InventoryProvider;
 import net.minestom.server.entity.Player;
+import net.minestom.server.inventory.click.ClickType;
 import net.minestom.server.item.Material;
 
 public class PickaxeUpgradeInventory implements InventoryProvider {
@@ -36,6 +37,10 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
                PickaxeSkinInventory.INVENTORY.open(player);
             }));
 
+            contents.set(2,6,ClickableItem.of(user.getPickaxe().getItem(), event -> {
+                event.getPlayer().sendMessage("pickaxe!");
+            }));
+
             int i = 0;
             for (PickaxeEnchantment value : PickaxeEnchantment.values()) {
                 int slot = upgradeSlots[i];
@@ -44,18 +49,16 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
                 contents.set(row,column,ClickableItem.of(
                         new ItemBuilder(value.getIcon()).name(value.getName()).build(),
                         event -> {
-                            PickaxeEnchantment enchantment = value;
-                            user.getPickaxe().addEnchantmentLevel(enchantment, 1);
-                            event.getPlayer().sendMessage("Applied enchantment " + enchantment.getName());
-                            MinesServer.getInstance().getPickaxeFactory().givePickaxe(user,player);
-                            init(player, contents);
+                            if (event.getClickType() == ClickType.LEFT_CLICK) {
+                                PickaxeEnchantment enchantment = value;
+                                user.getPickaxe().addEnchantmentLevel(enchantment, 1);
+                                event.getPlayer().sendMessage("Applied enchantment " + enchantment.getName());
+                                MinesServer.getInstance().getPickaxeFactory().givePickaxe(user,player);
+                                INVENTORY.open(player);
+                            }
                         }));
                 i++;
             }
-
-            contents.set(2,6,ClickableItem.of(user.getPickaxe().getItem(), event -> {
-                event.getPlayer().sendMessage("pickaxe!");
-            }));
         });
     }
 

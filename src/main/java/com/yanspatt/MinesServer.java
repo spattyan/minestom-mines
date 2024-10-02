@@ -1,5 +1,6 @@
 package com.yanspatt;
 
+import com.yanspatt.controller.EnchantmentController;
 import com.yanspatt.controller.EventController;
 import com.yanspatt.controller.InstanceController;
 import com.yanspatt.controller.UserController;
@@ -19,6 +20,7 @@ public class MinesServer {
 
     private InstanceController instanceController;
     private EventController eventController;
+    private EnchantmentController enchantmentController;
 
     private RedisManager redisManager;
 
@@ -60,6 +62,8 @@ public class MinesServer {
 
         inventoryManager = new InventoryManager(this);
         inventoryManager.init();
+
+        enchantmentController = new EnchantmentController();
     }
 
 }

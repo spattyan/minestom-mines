@@ -8,9 +8,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
-import net.minestom.server.event.inventory.InventoryCloseEvent;
-import net.minestom.server.event.inventory.InventoryOpenEvent;
-import net.minestom.server.event.inventory.InventoryPreClickEvent;
+import net.minestom.server.event.inventory.*;
 import net.minestom.server.event.player.PlayerDisconnectEvent;
 import net.minestom.server.event.trait.EntityEvent;
 import net.minestom.server.event.trait.InventoryEvent;
@@ -114,19 +112,18 @@ public class InventoryManager {
         var handler = MinecraftServer.getGlobalEventHandler();
         EventNode<PlayerEvent> inventoryPlayerEvents = EventNode.type("player-events-inventory-custom", EventFilter.PLAYER);
         EventNode<InventoryEvent> inventoryEvents = EventNode.type("inventory-custom", EventFilter.INVENTORY);
-
         inventoryEvents.addListener(InventoryPreClickEvent.class, event -> {
+            event.setCancelled(true);
            Player player = (Player) event.getPlayer();
 
            if (!inventories.containsKey(player.getUsername().toLowerCase())) {
                return;
            }
 
-           if (Objects.equals(event.getInventory(), player.getInventory())) {
+           if (event.getInventory() == null) {
                event.setCancelled(true);
                return;
            }
-                event.setCancelled(true);
 
                 int row = event.getSlot() / 9;
                 int column = event.getSlot() % 9;
@@ -145,7 +142,7 @@ public class InventoryManager {
 
                 contents.get(player.getUsername().toLowerCase()).get(row, column).ifPresent(item -> item.run(event));
 
-                player.getInventory().update();
+                if (player.getOpenInventory() != null)  player.getOpenInventory().update();
 
         });
 

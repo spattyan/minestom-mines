@@ -30,10 +30,10 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                         event.getPlayer().sendMessage("Welcome back, " + event.getPlayer().getUsername());
                     } else {
                         event.getPlayer().sendMessage("Welcome, " + event.getPlayer().getUsername());
-                        user = Optional.of(userController.createUser(event.getPlayer().getUsername()));
+                        user = userController.createUser(event.getPlayer().getUsername());
                     }
 
-                    MinesServer.getInstance().getPickaxeFactory().givePickaxe(user.get(), event.getPlayer());
+                        MinesServer.getInstance().getPickaxeFactory().givePickaxe(user.get(), event.getPlayer());
 
                     event.getPlayer().setAllowFlying(true);
                     event.getPlayer().setFlying(true);

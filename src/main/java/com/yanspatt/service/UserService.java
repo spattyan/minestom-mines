@@ -33,4 +33,8 @@ public class UserService {
         userCache.invalidateUser(user.getUsername());
     }
 
+    public void updateCache(User user) {
+        userCache.cacheUser(user.getUsername(), user);
+    }
+
 }

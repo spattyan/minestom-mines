@@ -14,7 +14,6 @@ public class PlayerPacketOutListener implements GenericEventListener<PlayerPacke
     public @NotNull EventListener<PlayerPacketOutEvent> register() {
         return EventListener.builder(PlayerPacketOutEvent.class)
                 .handler(event -> {
-
                     if (event.getPacket() instanceof BlockBreakAnimationPacket) {
                         BlockBreakAnimationPacket packet = (BlockBreakAnimationPacket) event.getPacket();
                         System.out.println("Player " + event.getPlayer().getUsername() + " is animating at " + packet.blockPosition());

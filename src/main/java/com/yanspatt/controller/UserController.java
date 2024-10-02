@@ -14,14 +14,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    public User createUser(String username) {
+    public Optional<User> createUser(String username) {
+        if (getUser(username).isPresent()) {
+            return userService.getUser(username);
+        }
         User user = new User(username);
         Pickaxe pickaxe = new Pickaxe();
 
         user.setPickaxe(pickaxe);
 
-
-        userService.saveUser(user);return user;
+        userService.saveUser(user);
+        return Optional.of(user);
     }
 
     public Optional<User> getUser(String username) {
@@ -30,6 +33,11 @@ public class UserController {
     }
 
     public void saveUser(User user) {
-        userService.saveUser(user);}
+        userService.saveUser(user);
+    }
+
+    public void update(User user) {
+        userService.updateCache(user);
+    }
 
 }
