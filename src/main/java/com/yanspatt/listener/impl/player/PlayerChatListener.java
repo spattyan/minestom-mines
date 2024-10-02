@@ -7,7 +7,6 @@ import com.yanspatt.model.pickaxe.PickaxeEnchantment;
 import com.yanspatt.model.pickaxe.PickaxeSkin;
 import com.yanspatt.model.user.User;
 import net.minestom.server.event.EventListener;
-import net.minestom.server.event.player.PlayerBlockBreakEvent;
 import net.minestom.server.event.player.PlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +43,8 @@ public class PlayerChatListener implements GenericEventListener<PlayerChatEvent>
                             user.getPickaxe().removeEnchantment(enchantment);
                             event.getPlayer().sendMessage("Removed enchantment " + enchantment.getName());
                         }
+
+
 
                         MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, event.getPlayer());
                     });

@@ -22,16 +22,16 @@ public class UserRedisRepository {
     }
 
     public Optional<User> get(String username) {
-        String key = getKey(username);
+        String key = getKey();
 
         try (Jedis jedis = pool.getResource()) {
-            Map<String, String> entries = jedis.hgetAll(key);
+            String data = jedis.hget(key, username.toLowerCase());
 
-            if (entries.isEmpty()) {
+            if (data == null) {
                 return Optional.empty();
             }
 
-            User user = gson.fromJson(entries.get(username), User.class);
+            User user = gson.fromJson(data, User.class);
 
             return Optional.of(user);
         } catch (Exception e) {
@@ -42,22 +42,12 @@ public class UserRedisRepository {
     }
 
     public void save(User user) {
-        String key = getKey(user.getUsername());
+        String key = getKey();
 
         try (Jedis jedis = pool.getResource()) {
             // TODO convert user to single key
 
             jedis.hset(key, user.getUsername().toLowerCase(), gson.toJson(user));
-
-
-            Transaction transaction = jedis.multi();
-            transaction.hset(key, "username", user.getUsername());
-            transaction.hset(key, "blocksMined", String.valueOf(user.getBlocksMined()));
-            transaction.hset(key, "tokens", String.valueOf(user.getTokens()));
-            transaction.hset(key, "level", String.valueOf(user.getLevel()));
-            transaction.hset(key, "pickaxe", gson.toJson(user.getPickaxe()));
-
-            transaction.exec();
         }
 
     }
@@ -67,7 +57,7 @@ public class UserRedisRepository {
 
     }
 
-    public String getKey(String username) {
+    public String getKey() {
         return "rankup01:mines:users";
     }
 

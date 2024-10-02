@@ -3,12 +3,14 @@ package com.yanspatt.repository.cache;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.yanspatt.model.user.User;
+import lombok.Getter;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class UserCache {
 
+    @Getter
     private Cache<String, User> cache;
 
     public UserCache() {

@@ -4,6 +4,7 @@ import com.yanspatt.MinesServer;
 import com.yanspatt.controller.UserController;
 import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.model.user.User;
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +34,11 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                     }
 
                     MinesServer.getInstance().getPickaxeFactory().givePickaxe(user.get(), event.getPlayer());
+
+                    event.getPlayer().setAllowFlying(true);
+                    event.getPlayer().setFlying(true);
+
+                    event.getPlayer().setGameMode(GameMode.CREATIVE);
 
                 })
                 .build();

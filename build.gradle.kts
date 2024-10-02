@@ -16,7 +16,10 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 
+    // Server dependencies
     implementation("net.minestom:minestom-snapshots:d0754f2a15")
+    implementation("dev.hollowcube:polar:1.11.3")
+
 
     implementation("redis.clients:jedis:5.2.0")
     implementation("com.google.guava:guava:33.3.1-jre")

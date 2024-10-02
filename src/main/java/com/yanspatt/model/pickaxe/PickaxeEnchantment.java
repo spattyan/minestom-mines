@@ -6,10 +6,12 @@ import net.minestom.server.item.Material;
 @Getter
 public enum PickaxeEnchantment {
 
-    FORTUNE(Material.DIAMOND, "Fortune", 100),
-    EFFICIENCY(Material.GOLDEN_PICKAXE, "Efficiency", 100),
-    LAYER_BREAKER(Material.BARRIER, "Layer Breaker", 100),
-    TOKENATOR(Material.SUNFLOWER, "Tokenator", 100);
+    FORTUNE(Material.DIAMOND, "Fortuna", 100),
+    EFFICIENCY(Material.GOLDEN_PICKAXE, "Efiencia", 100),
+    LAYER_BREAKER(Material.BARRIER, "Quebrador de Camada", 100),
+    TOKENATOR(Material.SUNFLOWER, "Tokenator", 100),
+    DRILL(Material.IRON_BARS, "Furadeira", 100),
+    NUCLEAR(Material.SLIME_BALL, "Radioativo", 100);
 
 
 

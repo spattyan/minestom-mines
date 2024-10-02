@@ -8,6 +8,7 @@ import com.yanspatt.manager.RedisManager;
 import com.yanspatt.repository.cache.UserCache;
 import com.yanspatt.repository.redis.UserRedisRepository;
 import com.yanspatt.service.UserService;
+import com.yanspatt.util.inventory.InventoryManager;
 import lombok.Getter;
 
 @Getter
@@ -25,6 +26,8 @@ public class MinesServer {
     private UserService userService;
     private UserCache userCache;
     private UserRedisRepository userRedisRepository;
+
+    private InventoryManager inventoryManager;
 
     // Factory
 
@@ -51,8 +54,12 @@ public class MinesServer {
 
         instanceController = new InstanceController();
 
+
         eventController = new EventController(this);
         eventController.registerEvents();
+
+        inventoryManager = new InventoryManager(this);
+        inventoryManager.init();
     }
 
 }

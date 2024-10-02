@@ -24,7 +24,8 @@ public class EventController {
                 new PlayerSpawnListener(minesServer.getUserController()),
                 new PlayerDisconnectListener(minesServer.getUserController()),
                 new PlayerBlockBreakListener(minesServer.getUserController()),
-                new PlayerChatListener(minesServer.getUserController())
+                new PlayerChatListener(minesServer.getUserController()),
+                new PlayerInteractListener(minesServer.getUserController())
         );
     }
 

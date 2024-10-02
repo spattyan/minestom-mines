@@ -14,7 +14,8 @@ public class AsyncPlayerConfigurationListener implements GenericEventListener<As
         return EventListener.builder(AsyncPlayerConfigurationEvent.class)
                 .handler(event -> {
                     event.setSpawningInstance(MinesServer.getInstance().getInstanceController().getInstanceContainer());
-                    event.getPlayer().setRespawnPoint(new Pos(-62.00, 45, 11.00,-90,0));
+                    //event.getPlayer().setRespawnPoint(new Pos(-62.00, 45, 11.00,-90,0));
+                    event.getPlayer().setRespawnPoint(new Pos(0.0, 45, 00.0));
                 })
                 .build();
     }

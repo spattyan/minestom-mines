@@ -11,8 +11,10 @@ import com.yanspatt.repository.redis.UserRedisRepository;
 import com.yanspatt.service.UserService;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.velocity.VelocityProxy;
 import net.minestom.server.network.packet.server.common.TransferPacket;
+import net.minestom.server.timer.SchedulerManager;
 
 public class Main {
 
@@ -45,6 +47,13 @@ public class Main {
         benchmark.setup();
 
         System.out.println("Using Port: " + port);
+
+        SchedulerManager scheduler = MinecraftServer.getSchedulerManager();
+        scheduler.buildShutdownTask(() -> {
+            minesServer.getUserCache().getCache().asMap().forEach((key,value) -> {
+                minesServer.getUserController().saveUser(value);
+            });
+        });
 
         minecraftServer.start("0.0.0.0", port);
 
