@@ -39,6 +39,7 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                     event.getPlayer().setFlying(true);
 
                     event.getPlayer().setGameMode(GameMode.CREATIVE);
+                    //MinesServer.getInstance().getScoreboard().addSidebar(event.getPlayer());
 
                 })
                 .build();

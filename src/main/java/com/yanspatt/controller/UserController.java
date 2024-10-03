@@ -1,8 +1,10 @@
 package com.yanspatt.controller;
 
+import com.yanspatt.MinesServer;
 import com.yanspatt.model.pickaxe.Pickaxe;
 import com.yanspatt.model.user.User;
 import com.yanspatt.service.UserService;
+import net.minestom.server.MinecraftServer;
 
 import java.util.Optional;
 

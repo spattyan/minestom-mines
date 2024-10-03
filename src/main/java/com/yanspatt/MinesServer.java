@@ -9,6 +9,7 @@ import com.yanspatt.manager.RedisManager;
 import com.yanspatt.repository.cache.UserCache;
 import com.yanspatt.repository.redis.UserRedisRepository;
 import com.yanspatt.service.UserService;
+import com.yanspatt.util.Scoreboard;
 import com.yanspatt.util.inventory.InventoryManager;
 import lombok.Getter;
 
@@ -30,6 +31,8 @@ public class MinesServer {
     private UserRedisRepository userRedisRepository;
 
     private InventoryManager inventoryManager;
+
+    private Scoreboard scoreboard;
 
     // Factory
 
@@ -64,6 +67,8 @@ public class MinesServer {
         inventoryManager.init();
 
         enchantmentController = new EnchantmentController();
+
+        scoreboard = new Scoreboard();
     }
 
 }

@@ -1,8 +1,9 @@
 package com.yanspatt.controller;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.yanspatt.enchantments.CustomEnchantment;
-import com.yanspatt.enchantments.impl.TokenatorEnchantment;
+import com.yanspatt.enchantments.impl.*;
 import com.yanspatt.model.pickaxe.PickaxeEnchantment;
 
 import java.util.List;
@@ -15,7 +16,19 @@ public class EnchantmentController {
 
     public EnchantmentController() {
         enchantments = Maps.newHashMap();
-        enchantments.put(PickaxeEnchantment.TOKENATOR,new TokenatorEnchantment());
+        List<CustomEnchantment> enchants = Lists.newArrayList(
+                new AcidEnchantmentImpl(),
+                new AlchemistEnchantmentImpl(),
+                new DestructorEnchantmentImpl(),
+                new ExperienceEnchantmentImpl(),
+                new KeychainEnchantmentImpl(),
+                new MeteorEnchantmentImpl(),
+                new NuclearEnchantmentImpl(),
+                new SpeedEnchantmentImpl(),
+                new TokenatorEnchantmentImpl()
+        );
+
+        enchants.forEach(enchantment -> {enchantments.put(enchantment.type(),enchantment);});
     }
 
     public Map<PickaxeEnchantment, CustomEnchantment> getEnchantments() {

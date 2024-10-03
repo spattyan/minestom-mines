@@ -11,6 +11,7 @@ public class User {
     private long blocksMined;
     private long tokens;
     private long level;
+    private long xp;
 
     private Pickaxe pickaxe;
 
@@ -19,5 +20,6 @@ public class User {
         this.blocksMined = 0;
         this.tokens = 0;
         this.level = 0;
+        this.xp = 0;
     }
 }

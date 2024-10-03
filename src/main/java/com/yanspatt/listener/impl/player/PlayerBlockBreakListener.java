@@ -29,7 +29,6 @@ public class PlayerBlockBreakListener implements GenericEventListener<PlayerBloc
                     optionalUser.ifPresent(user -> {
                       user.setBlocksMined(user.getBlocksMined() + 1);
                         MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, event.getPlayer());
-
                         user.getPickaxe().getEnchantments().forEach((key,value) -> {
                             CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
                             if (enchant != null) {

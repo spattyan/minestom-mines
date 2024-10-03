@@ -28,23 +28,15 @@ public class PlayerChatListener implements GenericEventListener<PlayerChatEvent>
                     optionalUser.ifPresent(user -> {
 
 
-                        if (event.getMessage().startsWith("skin")) {
-                            user.getPickaxe().setSkin(PickaxeSkin.valueOf(event.getMessage().split(" ")[1].toUpperCase()));
-                            event.getPlayer().sendMessage("Skin set to " + user.getPickaxe().getSkin().name());
+                        if (event.getMessage().startsWith("token")) {
+                            user.setTokens(Long.parseLong(event.getMessage().split(" ")[1]));
+                            event.getPlayer().sendMessage("here!  " + user.getTokens() + " tokens for you!");
                         }
 
-                        if (event.getMessage().startsWith("enchantment")) {
-                            PickaxeEnchantment enchantment = PickaxeEnchantment.valueOf(event.getMessage().split(" ")[1].toUpperCase());
-                            user.getPickaxe().addEnchantment(enchantment, Integer.parseInt(event.getMessage().split(" ")[2]));
-                            event.getPlayer().sendMessage("Applied enchantment " + enchantment.getName() + " level " + event.getMessage().split(" ")[2]);
-                        }
-                        if (event.getMessage().startsWith("-enchantment")) {
-                            PickaxeEnchantment enchantment = PickaxeEnchantment.valueOf(event.getMessage().split(" ")[1].toUpperCase());
-                            user.getPickaxe().removeEnchantment(enchantment);
-                            event.getPlayer().sendMessage("Removed enchantment " + enchantment.getName());
+                        if (event.getMessage().startsWith("carteira")) {
+                            event.getPlayer().sendMessage("tokens: " + user.getTokens());
                         }
 
-                        MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, event.getPlayer());
                     });
                 })
                 .build();
