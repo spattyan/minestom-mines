@@ -15,7 +15,7 @@ public class User {
     private long xp;
 
     private Pickaxe pickaxe;
-    private transient Mine mine;
+    private Mine mine;
 
     public User(String username) {
         this.username = username;

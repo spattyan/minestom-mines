@@ -4,6 +4,7 @@ import com.yanspatt.MinesServer;
 import com.yanspatt.enchantments.BlockHandler;
 import com.yanspatt.enchantments.CustomEnchantment;
 import com.yanspatt.model.mine.Mine;
+import com.yanspatt.model.mine.packetMine.MinedBlock;
 import com.yanspatt.model.mine.packetMine.MiningChunkSection;
 import com.yanspatt.model.pickaxe.PickaxeEnchantment;
 import com.yanspatt.model.user.User;
@@ -17,6 +18,7 @@ import net.minestom.server.network.packet.server.play.ChunkDataPacket;
 import net.minestom.server.network.packet.server.play.MultiBlockChangePacket;
 import net.minestom.server.utils.chunk.ChunkUtils;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.IntUnaryOperator;
 
@@ -26,6 +28,12 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
     public PickaxeEnchantment type() {
         return PickaxeEnchantment.DESTRUCTOR;
     }
+
+   private List<PickaxeEnchantment> whitelist = List.of(
+            PickaxeEnchantment.EXPERIENCE,
+            PickaxeEnchantment.KEYCHAIN,
+            PickaxeEnchantment.TOKENATOR
+    );
 
     @Override
     public void blockBreak(User user, BlockHandler handler) {
@@ -38,7 +46,14 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
             int y = handler.getPosition().blockY();
             for (int x = mine.getPosition1().blockX()+1; x <= mine.getPosition2().blockX()-1; ++x) {
                 for (int z = mine.getPosition1().blockZ()+1; z <= mine.getPosition2().blockZ()-1; ++z) {
+                    user.getMine().getMinedBlocks().add(new MinedBlock(x,y,z,0));
+                    user.getPickaxe().getEnchantments().forEach((key,value) -> {
+                        CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
+                        if (enchant != null && whitelist.contains(enchant.type())) {
+                            enchant.blockBreak(user, handler);
+                        }
 
+                    });
                     BlockChangePacket blockChangePacket = new BlockChangePacket(new Pos(x,y,z),Block.AIR);
                     handler.getPlayer().sendPacket(blockChangePacket);
                     user.setBlocksMined(user.getBlocksMined() + 1);

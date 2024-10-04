@@ -18,10 +18,5 @@ public class MineController {
         this.userService = userService;
     }
 
-    public boolean blockIsInMine(User user, Point location) {
-        Mine mine = user.getMine();
-
-        return location.blockX() >= mine.getPosition1().blockX()+1 && location.blockX() <= mine.getPosition2().blockX()-1 && location.blockZ() >= mine.getPosition1().blockZ()+1 && location.blockZ() <= mine.getPosition2().blockZ()-1 && location.blockY() > mine.getPosition1().blockY();
-    }
 
 }

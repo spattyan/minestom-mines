@@ -79,7 +79,7 @@ public class MineBlockInventory implements InventoryProvider {
                 int column = slot % 9;
                 contents.set(row,column,ClickableItem.of(new ItemBuilder(Material.PAPER).name("&fBloco: &a" +block.name()).build(), event -> {
                     user.getMine().setBlock(block);
-                    MinesServer.getInstance().getMineFactory().populateMine(user,player,block);
+                    MinesServer.getInstance().getMineFactory().populateMine(user,player,block,true);
                     INVENTORY.open(player);
                 }));
                 index++;
@@ -97,14 +97,14 @@ public class MineBlockInventory implements InventoryProvider {
 
             contents.set(5,3, ClickableItem.of(new ItemBuilder(Material.RED_TERRACOTTA).name("&cDiminuir tamanho").build(), event -> {
                 user.getMine().setSize(user.getMine().getSize()-1);
-                MinesServer.getInstance().getMineFactory().populateMine(user,player,user.getMine().getBlock());
+                MinesServer.getInstance().getMineFactory().populateMine(user,player,user.getMine().getBlock(),true);
 
             }));
 
             contents.set(5,5, ClickableItem.of(new ItemBuilder(Material.GREEN_TERRACOTTA).name("&aAumentar tamanho").build(), event -> {
                 boolean result =user.getMine().setSize(user.getMine().getSize()+1);
                 if (result) {
-                    MinesServer.getInstance().getMineFactory().populateMine(user,player,user.getMine().getBlock());
+                    MinesServer.getInstance().getMineFactory().populateMine(user,player,user.getMine().getBlock(),true);
                 }
 
             }));

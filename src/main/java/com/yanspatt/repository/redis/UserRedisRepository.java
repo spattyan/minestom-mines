@@ -1,13 +1,15 @@
 package com.yanspatt.repository.redis;
 
 import com.google.gson.Gson;
-import com.yanspatt.model.pickaxe.Pickaxe;
+import com.google.gson.GsonBuilder;
+import com.yanspatt.adapter.MineBlockAdapter;
+import com.yanspatt.model.mine.Mine;
+import com.yanspatt.model.mine.packetMine.MinedBlock;
 import com.yanspatt.model.user.User;
+import com.yanspatt.adapter.MineAdapter;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.Transaction;
 
-import java.util.Map;
 import java.util.Optional;
 
 public class UserRedisRepository {
@@ -18,7 +20,7 @@ public class UserRedisRepository {
 
     public UserRedisRepository(JedisPool redisPool) {
         this.pool = redisPool;
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().registerTypeAdapter(Mine.class, new MineAdapter()).registerTypeAdapter(MinedBlock.class,new MineBlockAdapter()).create();
     }
 
     public Optional<User> get(String username) {

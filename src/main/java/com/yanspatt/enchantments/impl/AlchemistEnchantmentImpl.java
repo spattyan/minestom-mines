@@ -26,9 +26,8 @@ public class AlchemistEnchantmentImpl extends CustomEnchantment {
 
         if (randomNumber <= ((type().getChancePerLevel() * user.getPickaxe().getEnchantLevel(type())) * 100)) {
             handler.getPlayer().sendMessage(Component.text("A MINA VIROU OURO!").color(NamedTextColor.GOLD));
-            MinesServer.getInstance().getMineFactory().populateMine(user, handler.getPlayer(), Block.GOLD_BLOCK);
+            MinesServer.getInstance().getMineFactory().populateMine(user, handler.getPlayer(), Block.GOLD_BLOCK,false);
             MinesServer.getInstance().getMineFactory().sendMine(user, handler.getPlayer());
-            handler.getPlayer().teleport(new Pos(0.0, 45, 00.0));
         }
     }
 }

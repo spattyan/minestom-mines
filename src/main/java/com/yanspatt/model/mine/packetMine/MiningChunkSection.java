@@ -4,6 +4,9 @@ import lombok.Getter;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.palette.Palette;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Store 16x16x16 area
 
 @Getter

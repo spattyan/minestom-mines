@@ -4,17 +4,10 @@ import com.yanspatt.MinesServer;
 import com.yanspatt.controller.UserController;
 import com.yanspatt.inventory.PickaxeUpgradeInventory;
 import com.yanspatt.listener.GenericEventListener;
-import com.yanspatt.model.user.User;
-import com.yanspatt.util.ItemBuilder;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventListener;
-import net.minestom.server.event.player.PlayerBlockInteractEvent;
 import net.minestom.server.event.player.PlayerUseItemEvent;
-import net.minestom.server.item.ItemComponent;
-import net.minestom.server.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class PlayerInteractListener implements GenericEventListener<PlayerUseItemEvent> {
 
@@ -30,6 +23,7 @@ public class PlayerInteractListener implements GenericEventListener<PlayerUseIte
                 .handler(event -> {
                     userController.getUser(event.getPlayer().getUsername())
                     .ifPresent(user -> {
+                        //event.setCancelled(true);
                                 if (event.getHand().equals(Player.Hand.MAIN)) {
                                     if (event.getItemStack().isSimilar(user.getPickaxe().getItem())) {
                                         PickaxeUpgradeInventory.INVENTORY.open(event.getPlayer());

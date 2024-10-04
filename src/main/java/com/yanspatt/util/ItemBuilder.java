@@ -6,12 +6,13 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.instance.block.predicate.BlockPredicate;
 import net.minestom.server.instance.block.predicate.BlockTypeFilter;
 import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.item.component.HeadProfile;
-import net.minestom.server.item.component.Tool;
+import net.minestom.server.item.component.*;
+import net.minestom.server.item.enchant.Enchantment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,14 +74,14 @@ public class ItemBuilder {
     }
 
     public ItemBuilder instaBreak() {
-        itemStack = itemStack.with(ItemComponent.TOOL,
-                new Tool(
-                        List.of(new Tool.Rule(
-                                new BlockTypeFilter.Blocks(
-                                        Block.DIRT
-                                ), 999f, true)
-                        ), 999f, 9999)
-                );
+        itemStack = itemStack.with(ItemComponent.STORED_ENCHANTMENTS, new EnchantmentList(Enchantment.EFFICIENCY,99).withTooltip(false));
+        itemStack = itemStack.with(ItemComponent.ENCHANTMENTS, new EnchantmentList(Enchantment.EFFICIENCY,99).withTooltip(false));
+        itemStack = itemStack.with(ItemComponent.UNBREAKABLE, new Unbreakable(false));
+        return this;
+    }
+
+    public ItemBuilder canBreak(Block... block) {
+        itemStack = itemStack.with(ItemComponent.CAN_BREAK, new BlockPredicates(new BlockPredicate(block)));
         return this;
     }
 

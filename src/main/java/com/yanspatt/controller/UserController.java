@@ -1,5 +1,7 @@
 package com.yanspatt.controller;
 
+import com.yanspatt.MinesServer;
+import com.yanspatt.model.mine.Mine;
 import com.yanspatt.model.pickaxe.Pickaxe;
 import com.yanspatt.model.user.User;
 import com.yanspatt.service.UserService;
@@ -20,8 +22,13 @@ public class UserController {
         }
         User user = new User(username);
         Pickaxe pickaxe = new Pickaxe();
+        Mine mine = new Mine();
+        mine.setOrigin(MinesServer.getInstance().getMineFactory().getOrigin());
+        mine.setDepth(MinesServer.getInstance().getMineFactory().getDepth());
+        mine.setSize(15);
 
         user.setPickaxe(pickaxe);
+        user.setMine(mine);
 
         userService.saveUser(user);
         return Optional.of(user);

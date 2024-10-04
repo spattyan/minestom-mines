@@ -44,7 +44,7 @@ public class ServerBenchmark {
             Component component = Component.text()
                     .content("Tick Time: ")
                     .color(NamedTextColor.GREEN)
-                    .append(Component.text(MathUtils.round(tickMonitor.getTickTime(), 2)))
+                    .append(Component.text(MathUtils.round(tickMonitor.getTickTime(), 2) + "ms"))
                     .append(Component.text(" RAM: "))
                     .append(Component.text(ramUsage))
                     .append(Component.text("mb"))

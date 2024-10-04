@@ -11,9 +11,12 @@ import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.attribute.Attribute;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerSpawnEvent;
+import net.minestom.server.potion.Potion;
+import net.minestom.server.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEvent> {
 
@@ -37,16 +40,14 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                         user = userController.createUser(event.getPlayer().getUsername());
                     }
 
-                        MinesServer.getInstance().getPickaxeFactory().givePickaxe(user.get(), event.getPlayer());
-
-
-                    event.getPlayer().setGameMode(GameMode.SURVIVAL);
+                    event.getPlayer().setGameMode(GameMode.ADVENTURE);
                     event.getPlayer().setAllowFlying(true);
                     event.getPlayer().setFlying(true);
-
-                    //event.getPlayer().getAttribute(Attribute.PLAYER_BLOCK_BREAK_SPEED).setBaseValue((double) 999);
+                    event.getPlayer().getAttribute(Attribute.PLAYER_BLOCK_BREAK_SPEED).setBaseValue((double) 999);
                     //MinesServer.getInstance().getScoreboard().addSidebar(event.getPlayer());
-                    MinesServer.getInstance().getMineFactory().createMine(user.get());
+                    MinesServer.getInstance().getMineFactory().populateMine(user.get(),event.getPlayer(),user.get().getMine().getBlock(),false);
+                    MinesServer.getInstance().getMineFactory().sendMine(user.get(),event.getPlayer());
+
                 })
                 .build();
     }
