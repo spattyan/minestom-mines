@@ -2,9 +2,13 @@ package com.yanspatt.listener.impl.player;
 
 import com.yanspatt.MinesServer;
 import com.yanspatt.controller.UserController;
+import com.yanspatt.factory.MineFactory;
 import com.yanspatt.listener.GenericEventListener;
+import com.yanspatt.model.mine.Mine;
 import com.yanspatt.model.user.User;
+import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.GameMode;
+import net.minestom.server.entity.attribute.Attribute;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 import org.jetbrains.annotations.NotNull;
@@ -35,12 +39,14 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
 
                         MinesServer.getInstance().getPickaxeFactory().givePickaxe(user.get(), event.getPlayer());
 
+
+                    event.getPlayer().setGameMode(GameMode.SURVIVAL);
                     event.getPlayer().setAllowFlying(true);
                     event.getPlayer().setFlying(true);
 
-                    event.getPlayer().setGameMode(GameMode.CREATIVE);
+                    //event.getPlayer().getAttribute(Attribute.PLAYER_BLOCK_BREAK_SPEED).setBaseValue((double) 999);
                     //MinesServer.getInstance().getScoreboard().addSidebar(event.getPlayer());
-
+                    MinesServer.getInstance().getMineFactory().createMine(user.get());
                 })
                 .build();
     }

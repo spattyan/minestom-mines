@@ -9,11 +9,7 @@ import com.yanspatt.model.user.User;
 import com.yanspatt.util.BigNumbers;
 import com.yanspatt.util.ItemBuilder;
 import net.minestom.server.entity.Player;
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.predicate.BlockTypeFilter;
-import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
-import net.minestom.server.item.component.Tool;
 
 public class PickaxeFactory {
 
@@ -34,6 +30,7 @@ public class PickaxeFactory {
                     baseColor + "Encantamentos"
             );
 
+            builder.instaBreak();
             pickaxe.getEnchantments().forEach((enchantment, level) -> {
                 builder.addLore(baseColor + " ▪ &f" + enchantment.getName() +": &7" + level);
             });

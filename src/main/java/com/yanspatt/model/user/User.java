@@ -1,5 +1,6 @@
 package com.yanspatt.model.user;
 
+import com.yanspatt.model.mine.Mine;
 import com.yanspatt.model.pickaxe.Pickaxe;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class User {
     private long xp;
 
     private Pickaxe pickaxe;
+    private transient Mine mine;
 
     public User(String username) {
         this.username = username;

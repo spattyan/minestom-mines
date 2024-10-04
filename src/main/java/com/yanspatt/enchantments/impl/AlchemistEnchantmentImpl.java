@@ -1,11 +1,14 @@
 package com.yanspatt.enchantments.impl;
 
+import com.yanspatt.MinesServer;
 import com.yanspatt.enchantments.BlockHandler;
 import com.yanspatt.enchantments.CustomEnchantment;
 import com.yanspatt.model.pickaxe.PickaxeEnchantment;
 import com.yanspatt.model.user.User;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.minestom.server.coordinate.Pos;
+import net.minestom.server.instance.block.Block;
 
 import java.util.Random;
 
@@ -23,6 +26,9 @@ public class AlchemistEnchantmentImpl extends CustomEnchantment {
 
         if (randomNumber <= ((type().getChancePerLevel() * user.getPickaxe().getEnchantLevel(type())) * 100)) {
             handler.getPlayer().sendMessage(Component.text("A MINA VIROU OURO!").color(NamedTextColor.GOLD));
+            MinesServer.getInstance().getMineFactory().populateMine(user, handler.getPlayer(), Block.GOLD_BLOCK);
+            MinesServer.getInstance().getMineFactory().sendMine(user, handler.getPlayer());
+            handler.getPlayer().teleport(new Pos(0.0, 45, 00.0));
         }
     }
 }

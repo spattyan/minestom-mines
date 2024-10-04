@@ -10,8 +10,6 @@ import java.util.UUID;
 @Data
 public class Pickaxe {
 
-    private String owner;
-
     private UUID uuid;
 
     private PickaxeSkin skin;

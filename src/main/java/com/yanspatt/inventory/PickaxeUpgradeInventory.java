@@ -38,6 +38,9 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
             contents.set(3,6,ClickableItem.of(new ItemBuilder(Material.NAME_TAG).name("&bSkins de Picareta").build(), event -> {
                PickaxeSkinInventory.INVENTORY.open(player);
             }));
+            contents.set(4,6,ClickableItem.of(new ItemBuilder(Material.STONE).name("&bBlocos de Mina").build(), event -> {
+                MineBlockInventory.INVENTORY.open(player);
+            }));
 
             contents.set(2,6,ClickableItem.of(user.getPickaxe().getItem(), event -> {
                 event.getPlayer().sendMessage("pickaxe!");
@@ -55,10 +58,10 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
                                         "",
                                         "&f Custo: &c" + BigNumbers.format(value.getPricePerLevel() * (user.getPickaxe().getEnchantLevel(value) == 0 ? 1 : user.getPickaxe().getEnchantLevel(value))) + " Tokens",
                                         "&f Nível: &7" + enchantLevel + "&8/&7" + value.getMaxLevel() + " &8[0%]",
-                                        "&f Prox. nível: &7" + (enchantLevel +1) + " &8[0%]",
+                                        "&f Chance Atual: &7" + (value.getChancePerLevel() *(enchantLevel +1)) + "%",
                                         "",
                                         "&f Botão Esquerdo: &aUpar 1 nível",
-                                        "&f Botão Direito: &aEscolher quantia",
+                                        "&f Botão Direito: &cZERAR ENCANTAMENTO",
                                         "&f Shift + Clique: &aUpar o possível"
                                         )
                                 .build(),
@@ -66,7 +69,7 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
                             PickaxeEnchantment enchantment = value;
 
                             if (user.getPickaxe().getEnchantLevel(enchantment) >= enchantment.getMaxLevel()) {
-                                return;
+                                //return;
                             }
                             int currentLevel = user.getPickaxe().getEnchantLevel(enchantment) == 0 ? 1 : user.getPickaxe().getEnchantLevel(enchantment);
                             long price = enchantment.getPricePerLevel() * currentLevel;
@@ -80,6 +83,12 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
                                     MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, player);
                                     INVENTORY.open(player);
                                 }
+                            }
+                            if (event.getClickType() == ClickType.RIGHT_CLICK) {
+                                    user.getPickaxe().removeEnchantment(enchantment);
+                                    event.getPlayer().sendMessage("reset " + enchantment.getName());
+                                    MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, player);
+                                    INVENTORY.open(player);
                             }
 
                             if (event.getClickType() == ClickType.START_SHIFT_CLICK) {

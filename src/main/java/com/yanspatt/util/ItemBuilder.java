@@ -5,10 +5,13 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerSkin;
+import net.minestom.server.instance.block.Block;
+import net.minestom.server.instance.block.predicate.BlockTypeFilter;
 import net.minestom.server.item.ItemComponent;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.item.component.HeadProfile;
+import net.minestom.server.item.component.Tool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +69,18 @@ public class ItemBuilder {
 
     public ItemBuilder amount(int amount) {
         itemStack = itemStack.withAmount(amount);
+        return this;
+    }
+
+    public ItemBuilder instaBreak() {
+        itemStack = itemStack.with(ItemComponent.TOOL,
+                new Tool(
+                        List.of(new Tool.Rule(
+                                new BlockTypeFilter.Blocks(
+                                        Block.DIRT
+                                ), 999f, true)
+                        ), 999f, 9999)
+                );
         return this;
     }
 

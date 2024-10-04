@@ -1,9 +1,7 @@
 package com.yanspatt;
 
-import com.yanspatt.controller.EnchantmentController;
-import com.yanspatt.controller.EventController;
-import com.yanspatt.controller.InstanceController;
-import com.yanspatt.controller.UserController;
+import com.yanspatt.controller.*;
+import com.yanspatt.factory.MineFactory;
 import com.yanspatt.factory.PickaxeFactory;
 import com.yanspatt.manager.RedisManager;
 import com.yanspatt.repository.cache.UserCache;
@@ -26,6 +24,9 @@ public class MinesServer {
     private RedisManager redisManager;
 
     private UserController userController;
+    private MineController mineController;
+
+
     private UserService userService;
     private UserCache userCache;
     private UserRedisRepository userRedisRepository;
@@ -37,6 +38,7 @@ public class MinesServer {
     // Factory
 
     private PickaxeFactory pickaxeFactory;
+    private MineFactory mineFactory;
 
     public MinesServer() {
         instance = this;
@@ -53,6 +55,7 @@ public class MinesServer {
         userService = new UserService(userCache, userRedisRepository);
 
         userController = new UserController(userService);
+        mineController = new MineController(userService);
 
         pickaxeFactory = new PickaxeFactory();
 
@@ -69,6 +72,8 @@ public class MinesServer {
         enchantmentController = new EnchantmentController();
 
         scoreboard = new Scoreboard();
+
+        this.mineFactory = new MineFactory();
     }
 
 }

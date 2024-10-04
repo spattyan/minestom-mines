@@ -15,7 +15,7 @@ public class UserCache {
 
     public UserCache() {
         this.cache = CacheBuilder.newBuilder()
-                .expireAfterWrite(10, TimeUnit.MINUTES)
+                .expireAfterWrite(24, TimeUnit.HOURS)
                 .maximumSize(1000)
                 .build();
     }

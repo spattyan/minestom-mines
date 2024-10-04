@@ -37,6 +37,10 @@ public class PlayerChatListener implements GenericEventListener<PlayerChatEvent>
                             event.getPlayer().sendMessage("tokens: " + user.getTokens());
                         }
 
+                        if (event.getMessage().startsWith("mine")) {
+                            MinesServer.getInstance().getMineFactory().sendMine(user, event.getPlayer());
+                        }
+
                     });
                 })
                 .build();
