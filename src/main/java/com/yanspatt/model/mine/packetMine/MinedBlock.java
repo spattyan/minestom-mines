@@ -3,7 +3,6 @@ package com.yanspatt.model.mine.packetMine;
 import com.google.gson.annotations.JsonAdapter;
 import com.yanspatt.adapter.MineBlockAdapter;
 import lombok.Data;
-import net.minestom.server.instance.block.Block;
 
 @Data
 @JsonAdapter(MineBlockAdapter.class)
@@ -12,21 +11,23 @@ public class MinedBlock {
     private int x;
     private int y;
     private int z;
-    private int stateId;
+    private MinedType type;
 
-    public MinedBlock(int x, int y, int z, int stateId) {
+    public MinedBlock(MinedType type,int x, int y, int z) {
+        this.type = type;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.stateId = stateId;
     }
 
-    public Block getBlock() {
-        return Block.fromStateId(stateId);
+    public MinedBlock(MinedType type, int y) {
+        this.type = type;
+        this.y = y;
     }
+
 
     public String asEncoded() {
-        return x + "," + y + "," + z + "," + stateId;
+        return x + "," + y + "," + z;
     }
 
     public static MinedBlock fromEncoded(String encoded) {
@@ -34,9 +35,9 @@ public class MinedBlock {
         int x = Integer.parseInt(parts[0]);
         int y = Integer.parseInt(parts[1]);
         int z = Integer.parseInt(parts[2]);
-        int stateId = Integer.parseInt(parts[3]);
 
-        return new MinedBlock(x,y,z,stateId);
+
+        return new MinedBlock(MinedType.BLOCK,x,y,z);
     }
 
 }

@@ -63,33 +63,20 @@ public class MineFactory {
 
     public void sendMine(User user, Player player) {
         Mine mine = user.getMine();
-        CompletableFuture.runAsync(() -> {
-                    AtomicInteger packetSize = new AtomicInteger();
-                    for (MiningChunkSection miningChunkSection : mine.getSection().getChunkSection()) {
 
-                        player.getInstance().loadChunk(miningChunkSection.getChunkX(), miningChunkSection.getChunkZ())
-                                .whenComplete((chunk, throwable) -> {
-                                    if (chunk != null) {
-                                        player.sendChunk(chunk);
-                                    }
-                                    if (throwable != null) {
-                                        throwable.printStackTrace();
-                                    }
-                                });
-
-                        System.out.println("Send " + packetSize.get() + " packets to player");
-                    }
-                });
+        for (MiningChunkSection miningChunkSection : mine.getSection().getChunkSection()) {
+            player.getInstance().loadChunk(miningChunkSection.getChunkX(),miningChunkSection.getChunkZ())
+                    .whenComplete((chunk, throwable) -> {
+                        if (chunk != null) {
+                            player.sendChunk(chunk);
+                        }
+                        if (throwable != null) {
+                            throwable.printStackTrace();
+                        }
+                    });
+        }
 
         MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, player);
-    }
-
-    public static long encodeBlockInChunkSection(int x, int y, int z, int stateId) {
-        int blockX = x & 0xF;
-        int blockY = y & 0xF;
-        int blockZ = z & 0xF;
-
-        return (((long) stateId & 0xFFFFF) << 12) | (blockX << 8) | (blockZ << 4) | blockY;
     }
 
 }

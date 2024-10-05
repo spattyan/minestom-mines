@@ -3,6 +3,7 @@ package com.yanspatt.adapter;
 import com.google.gson.*;
 import com.yanspatt.model.mine.Mine;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
+import com.yanspatt.model.mine.packetMine.MinedType;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.instance.block.Block;
 
@@ -27,9 +28,22 @@ public class MineAdapter implements JsonSerializer<Mine>, JsonDeserializer<Mine>
         obj.addProperty("size",mine.getSize());
 
         StringBuilder builder = new StringBuilder();
-        for (MinedBlock minedBlock : mine.getMinedBlocks()) {
-            builder.append(minedBlock.asEncoded() + ";");
-        }
+        StringBuilder layers = new StringBuilder().append("LAYER");
+        List<Integer> blacklist = new ArrayList<>();
+        mine.getMinedBlocks().stream().filter(block -> block.getType() == MinedType.LAYER).forEach(block -> {
+            layers.append("/" + block.getY());
+            if (!blacklist.contains(block.getY())) {
+                blacklist.add(block.getY());
+            }
+        });
+
+        mine.getMinedBlocks().stream().filter(block -> block.getType() == MinedType.BLOCK).forEach(block -> {
+            if (!blacklist.contains(block.getY())) {
+                builder.append(block.asEncoded()).append(";");
+            }
+        });
+
+        builder.append(layers);
         obj.addProperty("minedBlocks",builder.toString());
         return obj;
     }
@@ -55,7 +69,15 @@ public class MineAdapter implements JsonSerializer<Mine>, JsonDeserializer<Mine>
 
         for (String minedBlock : minedBlocks) {
             if (minedBlock == null || minedBlock.isEmpty()) continue;
-            blockList.add(MinedBlock.fromEncoded(minedBlock));
+            if (minedBlock.startsWith("LAYER")) {
+                String[] layer = minedBlock.split("/");
+                for (String s : layer) {
+                    if (s.contains("LAYER")) continue;
+                    blockList.add(new MinedBlock(MinedType.LAYER,Integer.parseInt(s)));
+                }
+            } else {
+                blockList.add(MinedBlock.fromEncoded(minedBlock));
+            }
         }
 
         mine.setPosition1(new Pos(Double.parseDouble(pos1[0]),Double.parseDouble(pos1[1]),Double.parseDouble(pos1[2])));

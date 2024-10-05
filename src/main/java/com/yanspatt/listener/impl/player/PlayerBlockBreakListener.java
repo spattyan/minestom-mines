@@ -7,6 +7,7 @@ import com.yanspatt.enchantments.BlockHandler;
 import com.yanspatt.enchantments.CustomEnchantment;
 import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
+import com.yanspatt.model.mine.packetMine.MinedType;
 import com.yanspatt.model.user.User;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
@@ -16,6 +17,7 @@ import net.minestom.server.event.player.PlayerFinishDiggingEvent;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.packet.server.play.BlockBreakAnimationPacket;
 import net.minestom.server.network.packet.server.play.BlockChangePacket;
+import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -40,20 +42,23 @@ public class PlayerBlockBreakListener implements GenericEventListener<PlayerBloc
                         if (user.getMine().isInside(event.getBlockPosition())) {
                             BlockChangePacket packet = new BlockChangePacket(event.getBlockPosition(), Block.AIR);
                             event.getPlayer().sendPacket(packet);
-                            user.getMine().getMinedBlocks().add(new MinedBlock(event.getBlockPosition().blockX(),event.getBlockPosition().blockY(),event.getBlockPosition().blockZ(),0));
+                            user.getMine().getMinedBlocks().add(
+                                    new MinedBlock(MinedType.BLOCK,
+                                            event.getBlockPosition().blockX(),
+                                            event.getBlockPosition().blockY(),
+                                            event.getBlockPosition().blockZ()));
                             user.setBlocksMined(user.getBlocksMined() + 1);
                             user.getPickaxe().getEnchantments().forEach((key,value) -> {
                                 CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
                                 if (enchant != null) {
                                     enchant.blockBreak(user, new BlockHandler(null,new Pos(event.getBlockPosition().blockX(),event.getBlockPosition().blockY(),event.getBlockPosition().blockZ()),event.getPlayer()));
                                 }
-
                             });
 
                             if (user.getMine().getMinedBlocks().size() >= user.getMine().getTotalBlocks()/2) {
                                 MinesServer.getInstance().getMineFactory().populateMine(user,event.getPlayer(),user.getMine().getBlock(),true);
                                 MinesServer.getInstance().getMineFactory().sendMine(user,event.getPlayer());
-                                event.getPlayer().teleport(new Pos(80.0, 51, 11.0,90,-0));
+                                event.getPlayer().teleport(new Pos(-62.0, 45, 11.0,-90,-0));
                             }
                             MinesServer.getInstance().getPickaxeFactory().givePickaxe(user, event.getPlayer());
                             event.getPlayer().getInventory().update();

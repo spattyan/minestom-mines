@@ -27,7 +27,8 @@ public class EventController {
                 new PlayerChatListener(minesServer.getUserController()),
                 new PlayerInteractListener(minesServer.getUserController()),
                 new PlayerStartDiggingListener(minesServer.getUserController()),
-                new PlayerRenderChunkListener(minesServer.getUserController())
+                new PlayerRenderChunkListener(minesServer.getUserController()),
+                new PlayerUnloadChunkListener(minesServer.getUserController())
         );
     }
 

@@ -1,5 +1,6 @@
 package com.yanspatt.util;
 
+import com.yanspatt.model.mine.packetMine.MinedBlock;
 import net.minestom.server.instance.palette.Palette;
 
 import java.util.ArrayList;
@@ -21,5 +22,20 @@ public class PaletteUtils {
         });
         return blocks;
     }
+
+    public static List<Map<String, Integer>> getBlocksInList(List<MinedBlock> minedBlocks) {
+        List<Map<String, Integer>> blocks = new ArrayList<>();
+
+        minedBlocks.forEach(minedBlock -> {
+            Map<String, Integer> block = new HashMap<>();
+            block.put("x", minedBlock.getX()& 0xF);
+            block.put("y", minedBlock.getY()& 0xFF);
+            block.put("z", minedBlock.getZ()& 0xF);
+            block.put("stateId", 0);
+            blocks.add(block);
+        });
+        return blocks;
+    }
+
 
 }

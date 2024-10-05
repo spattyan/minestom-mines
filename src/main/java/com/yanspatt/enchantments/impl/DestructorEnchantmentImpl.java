@@ -5,6 +5,7 @@ import com.yanspatt.enchantments.BlockHandler;
 import com.yanspatt.enchantments.CustomEnchantment;
 import com.yanspatt.model.mine.Mine;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
+import com.yanspatt.model.mine.packetMine.MinedType;
 import com.yanspatt.model.mine.packetMine.MiningChunkSection;
 import com.yanspatt.model.pickaxe.PickaxeEnchantment;
 import com.yanspatt.model.user.User;
@@ -16,6 +17,7 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.packet.server.play.BlockChangePacket;
 import net.minestom.server.network.packet.server.play.ChunkDataPacket;
 import net.minestom.server.network.packet.server.play.MultiBlockChangePacket;
+import net.minestom.server.permission.PermissionVerifier;
 import net.minestom.server.utils.chunk.ChunkUtils;
 
 import java.util.List;
@@ -44,9 +46,12 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
             Mine mine = user.getMine();
 
             int y = handler.getPosition().blockY();
+
+            user.getMine().getMinedBlocks().add(
+                    new MinedBlock(MinedType.LAYER, y));
+
             for (int x = mine.getPosition1().blockX()+1; x <= mine.getPosition2().blockX()-1; ++x) {
                 for (int z = mine.getPosition1().blockZ()+1; z <= mine.getPosition2().blockZ()-1; ++z) {
-                    user.getMine().getMinedBlocks().add(new MinedBlock(x,y,z,0));
                     user.getPickaxe().getEnchantments().forEach((key,value) -> {
                         CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
                         if (enchant != null && whitelist.contains(enchant.type())) {
@@ -59,7 +64,6 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
                     user.setBlocksMined(user.getBlocksMined() + 1);
                 }
             }
-
         }
     }
 }

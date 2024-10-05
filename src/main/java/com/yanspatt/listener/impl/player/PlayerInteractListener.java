@@ -23,7 +23,7 @@ public class PlayerInteractListener implements GenericEventListener<PlayerUseIte
                 .handler(event -> {
                     userController.getUser(event.getPlayer().getUsername())
                     .ifPresent(user -> {
-                        //event.setCancelled(true);
+                        event.setCancelled(true);
                                 if (event.getHand().equals(Player.Hand.MAIN)) {
                                     if (event.getItemStack().isSimilar(user.getPickaxe().getItem())) {
                                         PickaxeUpgradeInventory.INVENTORY.open(event.getPlayer());

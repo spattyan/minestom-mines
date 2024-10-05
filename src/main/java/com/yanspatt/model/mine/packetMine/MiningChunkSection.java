@@ -1,5 +1,6 @@
 package com.yanspatt.model.mine.packetMine;
 
+import lombok.Data;
 import lombok.Getter;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.palette.Palette;
@@ -9,18 +10,20 @@ import java.util.List;
 
 // Store 16x16x16 area
 
-@Getter
+@Data
 public class MiningChunkSection {
 
     private int id;
     private int chunkX;
     private int chunkZ;
+    private boolean loaded;
     private Palette blocks;
 
     public MiningChunkSection(int id, int chunkX, int chunkZ) {
         this.id = id;
         this.chunkX = chunkX;
         this.chunkZ = chunkZ;
+        this.loaded = false;
         blocks = Palette.blocks();
     }
 

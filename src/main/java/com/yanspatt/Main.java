@@ -59,7 +59,17 @@ public class Main {
         System.setProperty("minestom.entity-view-distance", "16");
         minecraftServer.start("0.0.0.0", port);
         System.out.println(System.getProperty("minestom.chunk-view-distance"));
+        System.out.println(encodeBlock(1,1,1,6,6,6));
 
+    }
+
+    public static long encodeBlock(int chunkX, int chunkZ, int section, int x, int y, int z) {
+        return (((long) chunkX & 0xFFFF) << 48) |  // 16 bits para chunkX
+                (((long) chunkZ & 0xFFFF) << 32) |  // 16 bits para chunkZ
+                (((long) section & 0xFF) << 24) |   // 8 bits para section
+                (((long) x & 0xF) << 20) |         // 4 bits para x
+                (((long) z & 0xF) << 16) |         // 4 bits para z
+                (((long) y & 0xFF) << 8);           // 8 bits para y
     }
 
 }
