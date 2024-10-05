@@ -52,6 +52,7 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
 
             for (int x = mine.getPosition1().blockX()+1; x <= mine.getPosition2().blockX()-1; ++x) {
                 for (int z = mine.getPosition1().blockZ()+1; z <= mine.getPosition2().blockZ()-1; ++z) {
+                    mine.setBrokenBlocks(mine.getBrokenBlocks()+1);
                     user.getPickaxe().getEnchantments().forEach((key,value) -> {
                         CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
                         if (enchant != null && whitelist.contains(enchant.type())) {

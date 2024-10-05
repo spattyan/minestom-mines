@@ -48,6 +48,7 @@ public class PlayerBlockBreakListener implements GenericEventListener<PlayerBloc
                                             event.getBlockPosition().blockY(),
                                             event.getBlockPosition().blockZ()));
                             user.setBlocksMined(user.getBlocksMined() + 1);
+                            user.getMine().setBrokenBlocks(user.getMine().getBrokenBlocks()+1);
                             user.getPickaxe().getEnchantments().forEach((key,value) -> {
                                 CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
                                 if (enchant != null) {
@@ -55,8 +56,8 @@ public class PlayerBlockBreakListener implements GenericEventListener<PlayerBloc
                                 }
                             });
 
-                            if (user.getMine().getMinedBlocks().size() >= user.getMine().getTotalBlocks()/2) {
-                                MinesServer.getInstance().getMineFactory().populateMine(user,event.getPlayer(),user.getMine().getBlock(),true);
+                            if (user.getMine().getBrokenBlocks() >= user.getMine().getTotalBlocks()/2) {
+                                MinesServer.getInstance().getMineFactory().populateMine(user,user.getMine().getBlock(),true);
                                 MinesServer.getInstance().getMineFactory().sendMine(user,event.getPlayer());
                                 event.getPlayer().teleport(new Pos(-62.0, 45, 11.0,-90,-0));
                             }

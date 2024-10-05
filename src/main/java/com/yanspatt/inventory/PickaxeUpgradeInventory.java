@@ -42,9 +42,7 @@ public class PickaxeUpgradeInventory implements InventoryProvider {
                 MineBlockInventory.INVENTORY.open(player);
             }));
 
-            contents.set(2,6,ClickableItem.of(user.getPickaxe().getItem(), event -> {
-                event.getPlayer().sendMessage("pickaxe!");
-            }));
+            contents.set(2,6,ClickableItem.empty(user.getPickaxe().getItem()));
 
             int i = 0;
             for (PickaxeEnchantment value : PickaxeEnchantment.values()) {

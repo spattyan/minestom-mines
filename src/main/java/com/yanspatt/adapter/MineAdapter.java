@@ -26,6 +26,7 @@ public class MineAdapter implements JsonSerializer<Mine>, JsonDeserializer<Mine>
         obj.addProperty("pos2",mine.getPosition2().blockX() +","+mine.getPosition2().blockY() + ","+ mine.getPosition2().blockZ());
         obj.addProperty("depth",mine.getDepth());
         obj.addProperty("size",mine.getSize());
+        obj.addProperty("brokenBlocks",mine.getBrokenBlocks());
 
         StringBuilder builder = new StringBuilder();
         StringBuilder layers = new StringBuilder().append("LAYER");
@@ -57,8 +58,11 @@ public class MineAdapter implements JsonSerializer<Mine>, JsonDeserializer<Mine>
         int depth = obj.get("depth").getAsInt();
         int block = obj.get("block").getAsInt();
         int size = obj.get("size").getAsInt();
+        int brokenBlocks = obj.get("brokenBlocks").getAsInt();
 
         Mine mine = new Mine();
+
+        mine.setBrokenBlocks(brokenBlocks);
 
         String[] pos1 = pos1Json.split(",");
         String[] pos2 = pos2Json.split(",");

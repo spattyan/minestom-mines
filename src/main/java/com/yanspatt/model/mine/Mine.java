@@ -14,10 +14,14 @@ import java.util.List;
 @Data
 public class Mine {
 
+    private int level;
+    private long xp;
+
     private int size;
     private int depth;
 
     private int totalBlocks;
+    private int brokenBlocks;
     private Block block;
     private transient Pos origin;
 
@@ -31,6 +35,7 @@ public class Mine {
         this.size = 15;
         this.depth = 40;
         this.totalBlocks = 0;
+        this.brokenBlocks = 0;
         this.block = Block.STONE;
         this.section = new MiningAreaChunkSection();
         this.minedBlocks = new ArrayList<>();

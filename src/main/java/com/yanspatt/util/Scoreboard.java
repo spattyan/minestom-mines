@@ -29,7 +29,7 @@ public class Scoreboard {
                     "&f Seu progresso",
                     " &b➥ &fTokens:&c " + user.getTokens(),
                     " &b➥ &fBlocos: &a" + BigNumbers.format(user.getBlocksMined()),
-                    " &b➥ &fLevel: &b" + user.getLevel(),
+                    " &b➥ &fLevel: &b",
                     "&2",
                     "&eloja.oberon.com",
 
