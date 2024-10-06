@@ -2,8 +2,6 @@ package com.yanspatt.inventory;
 
 import com.google.common.collect.Lists;
 import com.yanspatt.MinesServer;
-import com.yanspatt.model.pickaxe.PickaxeEnchantment;
-import com.yanspatt.util.BigNumbers;
 import com.yanspatt.util.ItemBuilder;
 import com.yanspatt.util.inventory.ClickableItem;
 import com.yanspatt.util.inventory.CustomInventory;
@@ -11,7 +9,6 @@ import com.yanspatt.util.inventory.contents.InventoryContents;
 import com.yanspatt.util.inventory.contents.InventoryProvider;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.inventory.click.ClickType;
 import net.minestom.server.item.Material;
 
 import java.util.List;
@@ -34,7 +31,7 @@ public class MineBlockInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContents contents) {
-        MinesServer.getInstance().getUserController().getUser(player.getUsername()).ifPresent(user -> {
+        MinesServer.getInstance().getUserRedisRepository().get(player.getUsername()).ifPresent(user -> {
             contents.set(5,0, ClickableItem.of(new ItemBuilder(Material.ARROW).name("&aVoltar").build(), event -> {
                 PickaxeUpgradeInventory.INVENTORY.open(player);
             }));
@@ -78,34 +75,34 @@ public class MineBlockInventory implements InventoryProvider {
                 int row = slot / 9;
                 int column = slot % 9;
                 contents.set(row,column,ClickableItem.of(new ItemBuilder(Material.PAPER).name("&fBloco: &a" +block.name()).build(), event -> {
-                    user.getMine().setBlock(block);
+                    //user.getMine().setBlock(block);
                     MinesServer.getInstance().getMineFactory().populateMine(user,block,true);
                     INVENTORY.open(player);
                 }));
                 index++;
             }
 
-            contents.set(5,4, ClickableItem.of(new ItemBuilder(Material.BARRIER).name("&aResetar").lore("","&fBloco atual: &a" + user.getMine().getBlock().name()).build(), event -> {
-                if (user.getMine().getBlock() == null) {
+            contents.set(5,4, ClickableItem.of(new ItemBuilder(Material.BARRIER).name("&aResetar").lore("","&fBloco atual: &a").build(), event -> {
+                /*if (user.getMine().getBlock() == null) {
                     player.sendMessage("ESCOLHA UM BLOCO ANTES!!");
                 } else {
                     MinesServer.getInstance().getMineFactory().sendMine(user,player);
                     player.closeInventory();
-                }
+                }*/
 
             }));
 
             contents.set(5,3, ClickableItem.of(new ItemBuilder(Material.RED_TERRACOTTA).name("&cDiminuir tamanho").build(), event -> {
-                user.getMine().setSize(user.getMine().getSize()-1);
+                /*user.getMine().setSize(user.getMine().getSize()-1);
                 MinesServer.getInstance().getMineFactory().populateMine(user,user.getMine().getBlock(),true);
-
+*/
             }));
 
             contents.set(5,5, ClickableItem.of(new ItemBuilder(Material.GREEN_TERRACOTTA).name("&aAumentar tamanho").build(), event -> {
-                boolean result =user.getMine().setSize(user.getMine().getSize()+1);
+                /*boolean result =user.getMine().setSize(user.getMine().getSize()+1);
                 if (result) {
                     MinesServer.getInstance().getMineFactory().populateMine(user,user.getMine().getBlock(),true);
-                }
+                }*/
 
             }));
         });

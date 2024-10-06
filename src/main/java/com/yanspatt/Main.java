@@ -1,20 +1,10 @@
 package com.yanspatt;
 
 import com.yanspatt.benchmark.ServerBenchmark;
-import com.yanspatt.controller.EventController;
-import com.yanspatt.controller.InstanceController;
-import com.yanspatt.controller.UserController;
-import com.yanspatt.manager.RedisManager;
-import com.yanspatt.model.user.User;
-import com.yanspatt.repository.cache.UserCache;
-import com.yanspatt.repository.redis.UserRedisRepository;
-import com.yanspatt.service.UserService;
+import com.yanspatt.loader.EnchantmentConfigLoader;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.ServerFlag;
-import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.velocity.VelocityProxy;
-import net.minestom.server.network.packet.server.common.TransferPacket;
 import net.minestom.server.timer.SchedulerManager;
 
 public class Main {
@@ -51,15 +41,12 @@ public class Main {
 
         SchedulerManager scheduler = MinecraftServer.getSchedulerManager();
         scheduler.buildShutdownTask(() -> {
-            minesServer.getUserCache().getCache().asMap().forEach((key,value) -> {
-                minesServer.getUserController().saveUser(value);
-            });
+
         });
-        System.setProperty("minestom.chunk-view-distance", "16");
-        System.setProperty("minestom.entity-view-distance", "16");
+        System.setProperty("minestom.chunk-view-distance", "8");
+        System.setProperty("minestom.entity-view-distance", "8");
         minecraftServer.start("0.0.0.0", port);
-        System.out.println(System.getProperty("minestom.chunk-view-distance"));
-        System.out.println(encodeBlock(1,1,1,6,6,6));
+
 
     }
 

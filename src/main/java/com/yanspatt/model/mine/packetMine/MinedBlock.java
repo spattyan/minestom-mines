@@ -1,11 +1,8 @@
 package com.yanspatt.model.mine.packetMine;
 
-import com.google.gson.annotations.JsonAdapter;
-import com.yanspatt.adapter.MineBlockAdapter;
 import lombok.Data;
 
 @Data
-@JsonAdapter(MineBlockAdapter.class)
 public class MinedBlock {
 
     private int x;

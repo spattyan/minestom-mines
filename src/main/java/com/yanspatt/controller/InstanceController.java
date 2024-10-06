@@ -23,7 +23,6 @@ public class InstanceController {
 
         instanceContainer.setChunkLoader(new AnvilLoader(Path.of("mines/mine-01")));
         instanceContainer.enableAutoChunkLoad(true);
-        //instanceContainer.setGenerator(unit -> unit.modifier().fillHeight(0, 40, Block.WHITE_STAINED_GLASS));
 
         instanceContainer.setChunkSupplier(LightingChunk::new);
     }

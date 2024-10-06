@@ -1,0 +1,143 @@
+
+#FORTUNE
+[fortune]
+name = "Fortuna"
+icon = "minecraft:diamond"
+description = "Este encantamento faz com que você ganhe mais coins na mineração."
+[fortune.level]
+default = 0 # Level default na picareta
+maxLevel = 10 # Use -1 for infinite
+percentPerLevel = 0.1 # Percent get by level
+[fortune.price]
+default = 100 # preço para o level 1
+perLevel = 200 # preço perLevel * level
+multiplier = 1.5 # multiplicador de pontos por exemplo
+
+# TOKENATOR
+[tokenator]
+name = "Tokenator"
+icon = "minecraft:sunflower"
+description = "Este encantamento faz com que você ganhe mais tokens na mineração."
+[tokenator.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[tokenator.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# EXPERIENCE
+[experience]
+name = "Experiente"
+icon = "minecraft:experience_bottle"
+description = "Este encantamento faz com que você ganhe mais XP na mineração."
+[experience.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[experience.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# KEYCHAIN
+[keychain]
+name = "Chaveiro"
+icon = "minecraft:tripwire_hook"
+description = "Este encantamento faz com que você ganhe chaves na mineração."
+[keychain.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[keychain.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# DESTRUCTOR
+[destructor]
+name = "Destruidor"
+icon = "minecraft:tnt"
+description = "Este encantamento faz com que você quebre uma camada inteira."
+[destructor.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[destructor.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# ALCHEMIST
+[alchemist]
+name = "Alquimista"
+icon = "minecraft:gold_block"
+description = "ste encantamento faz com que você transforme a mina em ouro."
+[alchemist.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[alchemist.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# METEOR
+[meteor]
+name = "Meteoro"
+icon = "minecraft:fire_charge"
+description = "Este encantamento faz com que você crie meteoros na área de mina."
+[meteor.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[meteor.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# NUCLEAR
+[nuclear]
+name = "Nuclear"
+icon = "minecraft:slime_ball"
+description = "Este encantamento faz com que você quebre a mina por completo."
+[nuclear.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[nuclear.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# SPEED
+[speed]
+name = "Velocidade"
+icon = "minecraft:sugar"
+description = "Este encantamento faz com que você ganhe velocidade ao minerar."
+[speed.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[speed.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+# ACID
+[acid]
+name = "Ácido"
+icon = "minecraft:emerald"
+description = "Partículas de ácido surgem e destroem uma camada."
+[acid.level]
+default = 0
+maxLevel = 10
+percentPerLevel = 0.1
+[acid.price]
+default = 100
+perLevel = 200
+multiplier = 1.00
+
+
+

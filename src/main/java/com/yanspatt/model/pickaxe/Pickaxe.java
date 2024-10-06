@@ -5,15 +5,11 @@ import lombok.Data;
 import net.minestom.server.item.ItemStack;
 
 import java.util.Map;
-import java.util.UUID;
-
 @Data
 public class Pickaxe {
 
-    private UUID uuid;
-
     private PickaxeSkin skin;
-    private Map<PickaxeEnchantment,Integer> enchantments;
+    private Map<EnchantmentType,Integer> enchantments;
 
     private transient ItemStack item;
 
@@ -22,20 +18,19 @@ public class Pickaxe {
     public Pickaxe() {
         this.skin = PickaxeSkin.DEFAULT;
         this.level = 0;
-        this.uuid = UUID.randomUUID();
         this.enchantments = Maps.newHashMap();
         this.item = null;
     }
 
-    public void addEnchantment(PickaxeEnchantment enchantment, int level) {
+    public void addEnchantment(EnchantmentType enchantment, int level) {
         enchantments.put(enchantment, level);
     }
 
-    public void removeEnchantment(PickaxeEnchantment enchantment) {
+    public void removeEnchantment(EnchantmentType enchantment) {
         enchantments.remove(enchantment);
     }
 
-    public void addEnchantmentLevel(PickaxeEnchantment enchantment, int increment) {
+    public void addEnchantmentLevel(EnchantmentType enchantment, int increment) {
         if (!enchantments.containsKey(enchantment)) {
             enchantments.put(enchantment, increment);
             return;
@@ -43,10 +38,11 @@ public class Pickaxe {
         enchantments.put(enchantment, enchantments.get(enchantment) + increment);
     }
 
-    public int getEnchantLevel(PickaxeEnchantment enchantment) {
+    public int getEnchantLevel(EnchantmentType enchantment) {
         if (!enchantments.containsKey(enchantment)) {
             return 0;
         }
         return enchantments.get(enchantment);
     }
+
 }

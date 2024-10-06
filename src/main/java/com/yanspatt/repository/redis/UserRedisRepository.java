@@ -1,17 +1,20 @@
 package com.yanspatt.repository.redis;
 
+import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.yanspatt.adapter.MineBlockAdapter;
 import com.yanspatt.model.mine.Mine;
-import com.yanspatt.model.mine.packetMine.MinedBlock;
 import com.yanspatt.model.user.User;
 import com.yanspatt.adapter.MineAdapter;
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisException;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class UserRedisRepository {
 
 
@@ -20,44 +23,39 @@ public class UserRedisRepository {
 
     public UserRedisRepository(JedisPool redisPool) {
         this.pool = redisPool;
-        this.gson = new GsonBuilder().registerTypeAdapter(Mine.class, new MineAdapter()).registerTypeAdapter(MinedBlock.class,new MineBlockAdapter()).create();
+        this.gson = new GsonBuilder().registerTypeAdapter(Mine.class, new MineAdapter()).create();
     }
 
     public Optional<User> get(String username) {
-        String key = getKey();
+        Stopwatch stopwatch = Stopwatch.createStarted();
 
         try (Jedis jedis = pool.getResource()) {
-            String data = jedis.hget(key, username.toLowerCase());
+            String data = jedis.hget(getKey(), username.toLowerCase());
 
             if (data == null) {
                 return Optional.empty();
             }
 
             User user = gson.fromJson(data, User.class);
-
+            stopwatch.stop();
+            System.out.println("delay: " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + "ms");
             return Optional.of(user);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            log.error("error: ",exception);;
             return Optional.empty();
         }
 
     }
 
     public void save(User user) {
-        String key = getKey();
-
         try (Jedis jedis = pool.getResource()) {
-            // TODO convert user to single key
-
-            jedis.hset(key, user.getUsername().toLowerCase(), gson.toJson(user));
+            jedis.hset(getKey(), user.getName().toLowerCase(), gson.toJson(user));
+        } catch (Exception exception) {
+            log.error("error: ",exception);;
         }
 
     }
 
-
-    public void removeFromLocalCache(String username) {
-
-    }
 
     public String getKey() {
         return "rankup01:mines:users";

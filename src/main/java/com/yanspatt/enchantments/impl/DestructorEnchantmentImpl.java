@@ -6,43 +6,34 @@ import com.yanspatt.enchantments.CustomEnchantment;
 import com.yanspatt.model.mine.Mine;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
 import com.yanspatt.model.mine.packetMine.MinedType;
-import com.yanspatt.model.mine.packetMine.MiningChunkSection;
+import com.yanspatt.model.pickaxe.EnchantmentType;
 import com.yanspatt.model.pickaxe.PickaxeEnchantment;
 import com.yanspatt.model.user.User;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import com.yanspatt.util.Probability;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.packet.server.play.BlockChangePacket;
-import net.minestom.server.network.packet.server.play.ChunkDataPacket;
-import net.minestom.server.network.packet.server.play.MultiBlockChangePacket;
-import net.minestom.server.permission.PermissionVerifier;
-import net.minestom.server.utils.chunk.ChunkUtils;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.IntUnaryOperator;
 
 public class DestructorEnchantmentImpl extends CustomEnchantment {
 
     @Override
-    public PickaxeEnchantment type() {
-        return PickaxeEnchantment.DESTRUCTOR;
+    public EnchantmentType type() {
+        return EnchantmentType.DESTRUCTOR;
     }
 
-   private List<PickaxeEnchantment> whitelist = List.of(
-            PickaxeEnchantment.EXPERIENCE,
-            PickaxeEnchantment.KEYCHAIN,
-            PickaxeEnchantment.TOKENATOR
+   private List<EnchantmentType> whitelist = List.of(
+            EnchantmentType.EXPERIENCE,
+            EnchantmentType.KEYCHAIN,
+            EnchantmentType.TOKENATOR
     );
 
     @Override
-    public void blockBreak(User user, BlockHandler handler) {
-        final Random random = new Random();
-        int randomNumber = random.nextInt(10000) + 1;
-
-        if (randomNumber <= ((type().getChancePerLevel() * user.getPickaxe().getEnchantLevel(type())) * 100)) {
+    public void blockBreak(User user, PickaxeEnchantment enchantment, BlockHandler handler) {
+        /*
+        if (Probability.probability(enchantment.getPercentByLevel() * user.getPickaxe().getEnchantLevel(type()))) {
             Mine mine = user.getMine();
 
             int y = handler.getPosition().blockY();
@@ -56,7 +47,7 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
                     user.getPickaxe().getEnchantments().forEach((key,value) -> {
                         CustomEnchantment enchant = MinesServer.getInstance().getEnchantmentController().getEnchantments().get(key);
                         if (enchant != null && whitelist.contains(enchant.type())) {
-                            enchant.blockBreak(user, handler);
+                            enchant.blockBreak(user, enchantment, handler);
                         }
 
                     });
@@ -65,6 +56,6 @@ public class DestructorEnchantmentImpl extends CustomEnchantment {
                     user.setBlocksMined(user.getBlocksMined() + 1);
                 }
             }
-        }
+        }*/
     }
 }

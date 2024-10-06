@@ -2,9 +2,13 @@ package com.yanspatt.factory;
 
 import com.yanspatt.MinesServer;
 import com.yanspatt.model.mine.Mine;
+import com.yanspatt.model.mine.MineArea;
 import com.yanspatt.model.mine.packetMine.MiningChunkSection;
 import com.yanspatt.model.user.User;
 import lombok.Getter;
+import net.hollowcube.polar.PolarChunk;
+import net.hollowcube.polar.PolarSection;
+import net.hollowcube.polar.PolarWriter;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.instance.block.Block;
@@ -17,18 +21,12 @@ public class MineFactory {
     private final int depth = 40;
 
     public void populateMine(User user, Block block,boolean resetBlocks) {
+        MineArea area = user.getMineArea();
         Mine mine = user.getMine();
 
-        if (resetBlocks) {
-            mine.getMinedBlocks().clear();
-        }
-        mine.setTotalBlocks(0);
-        mine.setBrokenBlocks(0);
-
-        for (int x = mine.getPosition1().blockX(); x <= mine.getPosition2().blockX(); ++x) {
-            for (int y = mine.getPosition1().blockY(); y <= mine.getPosition2().blockY(); ++y) {
-                for (int z = mine.getPosition1().blockZ(); z <= mine.getPosition2().blockZ(); ++z) {
-
+        for (int x = area.getPosition1().blockX(); x <= area.getPosition2().blockX(); ++x) {
+            for (int y = area.getPosition1().blockY(); y <= area.getPosition2().blockY(); ++y) {
+                for (int z = area.getPosition1().blockZ(); z <= area.getPosition2().blockZ(); ++z) {
                     int sectionY = ChunkUtils.blockIndexToChunkPositionY(y);
                     MiningChunkSection section = mine.getSection().getChunk(x>>4,z>>4,sectionY);
                     if (section == null) {

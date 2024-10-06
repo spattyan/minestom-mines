@@ -6,6 +6,7 @@ import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
 import com.yanspatt.model.mine.packetMine.MinedType;
 import com.yanspatt.model.mine.packetMine.MiningChunkSection;
+import com.yanspatt.repository.redis.UserRedisRepository;
 import com.yanspatt.util.PaletteUtils;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerChunkLoadEvent;
@@ -19,18 +20,18 @@ import java.util.Map;
 
 public class PlayerRenderChunkListener implements GenericEventListener<PlayerChunkLoadEvent> {
 
-    private UserController userController;
+    private UserController repository;
 
-    public PlayerRenderChunkListener(UserController userController) {
-        this.userController = userController;
+    public PlayerRenderChunkListener(UserController repository) {
+        this.repository = repository;
     }
 
     @Override
     public @NotNull EventListener<PlayerChunkLoadEvent> register() {
         return EventListener.builder(PlayerChunkLoadEvent.class)
                 .handler(event -> {
-                    userController.getUser(event.getPlayer().getUsername()).ifPresent(user -> {
-
+                    repository.getUser(event.getPlayer().getUsername()).ifPresent(user -> {
+                        if (user.getMine() == null) return;
                         List<MiningChunkSection> sectionsToLoad = user.getMine().getSection().getChunkSection().stream().filter(sec ->
                                 sec.getChunkX() == event.getChunkX() && sec.getChunkZ() == event.getChunkZ()
                         ).toList();

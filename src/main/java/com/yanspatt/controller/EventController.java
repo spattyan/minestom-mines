@@ -6,6 +6,7 @@ import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.listener.impl.player.*;
 import com.yanspatt.listener.impl.PlayerPacketListener;
 import com.yanspatt.listener.impl.PlayerPacketOutListener;
+import com.yanspatt.repository.redis.UserRedisRepository;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
 
@@ -17,29 +18,27 @@ public class EventController {
     private List<GenericEventListener> eventListeners;
 
     public EventController(MinesServer minesServer) {
+        UserController repository = minesServer.getUserController();
         this.eventListeners = List.of(
                 new AsyncPlayerConfigurationListener(),
                 new PlayerPacketListener(),
                 new PlayerPacketOutListener(),
-                new PlayerSpawnListener(minesServer.getUserController()),
-                new PlayerDisconnectListener(minesServer.getUserController()),
-                new PlayerBlockBreakListener(minesServer.getUserController()),
-                new PlayerChatListener(minesServer.getUserController()),
-                new PlayerInteractListener(minesServer.getUserController()),
-                new PlayerStartDiggingListener(minesServer.getUserController()),
-                new PlayerRenderChunkListener(minesServer.getUserController()),
-                new PlayerUnloadChunkListener(minesServer.getUserController())
+                new PlayerSpawnListener(repository),
+                new PlayerBlockBreakListener(repository),
+                new PlayerChatListener(repository),
+                new PlayerInteractListener(repository),
+                new PlayerRenderChunkListener(repository)
         );
     }
 
     public void registerEvents() {
 
-
         var globalEventNode = MinecraftServer.getGlobalEventHandler();
         eventListeners.forEach(listener -> {
             globalEventNode.addListener(listener.register());
-            System.out.println("Registered Event: " + listener.getClass().getSimpleName());
         });
+
+        System.out.println("Registered Events: " + eventListeners.size());
     }
 
 

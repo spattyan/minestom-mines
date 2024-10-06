@@ -3,13 +3,17 @@ package com.yanspatt;
 import com.yanspatt.controller.*;
 import com.yanspatt.factory.MineFactory;
 import com.yanspatt.factory.PickaxeFactory;
+import com.yanspatt.manager.ConfigManager;
 import com.yanspatt.manager.RedisManager;
 import com.yanspatt.repository.cache.UserCache;
 import com.yanspatt.repository.redis.UserRedisRepository;
+import com.yanspatt.scheduler.SchedulerJob;
+import com.yanspatt.scheduler.ServerScheduler;
+import com.yanspatt.service.EnchantmentService;
 import com.yanspatt.service.UserService;
-import com.yanspatt.util.Scoreboard;
 import com.yanspatt.util.inventory.InventoryManager;
 import lombok.Getter;
+import net.minestom.server.MinecraftServer;
 
 @Getter
 public class MinesServer {
@@ -22,18 +26,19 @@ public class MinesServer {
     private EnchantmentController enchantmentController;
 
     private RedisManager redisManager;
+    private ConfigManager configManager;
 
     private UserController userController;
-    private MineController mineController;
-
 
     private UserService userService;
+    private EnchantmentService enchantmentService;
+
     private UserCache userCache;
     private UserRedisRepository userRedisRepository;
 
     private InventoryManager inventoryManager;
 
-    private Scoreboard scoreboard;
+    private ServerScheduler scheduler;
 
     // Factory
 
@@ -45,23 +50,40 @@ public class MinesServer {
     }
 
     public void init() {
+
+        scheduler = new ServerScheduler();
+        scheduler.scheduleJobs();
+
+
         redisManager = new RedisManager();
         redisManager.initConnectionPool();
+
+        configManager = new ConfigManager();
 
         // user
         userCache = new UserCache();
         userRedisRepository = new UserRedisRepository(redisManager.getPool());
 
+        scheduler.addJob(new SchedulerJob(-1,1000, () -> {
+            userCache.getCache().asMap().values().forEach(user -> {
+               userRedisRepository.save(user);
+            });
+        }));
+
         userService = new UserService(userCache, userRedisRepository);
 
+        try {
+            enchantmentService = new EnchantmentService();
+        } catch (Exception e) {
+            MinecraftServer.stopCleanly();
+            e.printStackTrace();
+        }
+
         userController = new UserController(userService);
-        mineController = new MineController(userService);
 
         pickaxeFactory = new PickaxeFactory();
 
-
         instanceController = new InstanceController();
-
 
         eventController = new EventController(this);
         eventController.registerEvents();
@@ -71,9 +93,8 @@ public class MinesServer {
 
         enchantmentController = new EnchantmentController();
 
-        scoreboard = new Scoreboard();
-
         this.mineFactory = new MineFactory();
+
     }
 
 }

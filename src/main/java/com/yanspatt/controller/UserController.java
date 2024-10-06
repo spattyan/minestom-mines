@@ -2,9 +2,12 @@ package com.yanspatt.controller;
 
 import com.yanspatt.MinesServer;
 import com.yanspatt.model.mine.Mine;
-import com.yanspatt.model.pickaxe.Pickaxe;
+import com.yanspatt.model.mine.MineArea;
 import com.yanspatt.model.user.User;
 import com.yanspatt.service.UserService;
+import net.minestom.server.entity.Player;
+import net.minestom.server.instance.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -21,14 +24,10 @@ public class UserController {
             return userService.getUser(username);
         }
         User user = new User(username);
-        Pickaxe pickaxe = new Pickaxe();
         Mine mine = new Mine();
         mine.setOrigin(MinesServer.getInstance().getMineFactory().getOrigin());
         mine.setDepth(MinesServer.getInstance().getMineFactory().getDepth());
         mine.setSize(15);
-
-        user.setPickaxe(pickaxe);
-        user.setMine(mine);
 
         userService.saveUser(user);
         return Optional.of(user);
@@ -48,4 +47,16 @@ public class UserController {
         userService.updateCache(user);
     }
 
+    public void spawnPlayer(User user, @NotNull Player player) {
+
+        Mine mine = new Mine();
+        mine.setOrigin(MinesServer.getInstance().getMineFactory().getOrigin());
+        mine.setDepth(MinesServer.getInstance().getMineFactory().getDepth());
+        mine.setSize(15);
+        user.setMine(mine);
+        user.setMineArea(new MineArea(mine.getPosition1(),mine.getPosition2()));
+        MinesServer.getInstance().getMineFactory().populateMine(user, Block.BLUE_TERRACOTTA,true);
+
+        MinesServer.getInstance().getPickaxeFactory().givePickaxe(user,player);
+    }
 }

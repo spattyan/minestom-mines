@@ -99,6 +99,7 @@ public class InventoryManager {
         inventory.close(player);
 
         System.out.println(("Error while opening SmartInventory:" + exception));
+        exception.printStackTrace();
     }
 
     public void handleInventoryUpdateError(CustomInventory inventory, Player player, Exception exception) {

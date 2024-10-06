@@ -30,11 +30,11 @@ public class UserService {
 
     public void saveUser(User user) {
         userRedisRepository.save(user);
-        userCache.invalidateUser(user.getUsername());
+        userCache.invalidateUser(user.getName());
     }
 
     public void updateCache(User user) {
-        userCache.cacheUser(user.getUsername(), user);
+        userCache.cacheUser(user.getName(), user);
     }
 
 }

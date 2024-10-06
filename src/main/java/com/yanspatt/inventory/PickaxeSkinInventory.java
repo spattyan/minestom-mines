@@ -30,7 +30,7 @@ public class PickaxeSkinInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContents contents) {
-        MinesServer.getInstance().getUserController().getUser(player.getUsername()).ifPresent(user -> {
+        MinesServer.getInstance().getUserRedisRepository().get(player.getUsername()).ifPresent(user -> {
 
             contents.set(2,0, ClickableItem.of(new ItemBuilder(Material.ARROW).name("&aVoltar").build(), event -> {
                PickaxeUpgradeInventory.INVENTORY.open(player);
@@ -47,8 +47,8 @@ public class PickaxeSkinInventory implements InventoryProvider {
                         new ItemBuilder(value.getIcon()).name("&7Skin: " + value.getPrefix()).build(),
                         event -> {
                             PickaxeSkin skin = value;
-                            user.getPickaxe().setSkin(skin);
-                            event.getPlayer().sendMessage("Applied skin " + user.getPickaxe().getSkin());
+                            user.setPickaxeSkin(skin);
+                            event.getPlayer().sendMessage("Applied skin " + user.getPickaxeSkin());
                             MinesServer.getInstance().getPickaxeFactory().givePickaxe(user,player);
                             PickaxeUpgradeInventory.INVENTORY.open(player);
                         }));

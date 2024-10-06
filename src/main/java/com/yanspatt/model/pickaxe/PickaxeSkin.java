@@ -12,9 +12,7 @@ public enum PickaxeSkin {
     IRON("iron_skin","&f", "&f&lPICARETA DE FERRO", Material.IRON_PICKAXE),
     GOLD("iron_skin","&e", "&e&lPICARETA DE OURO", Material.GOLDEN_PICKAXE),
     DIAMOND("diamond_skin","&b", "&b&lPICARETA DE DIAMANTE", Material.DIAMOND_PICKAXE),
-    BOB("bob_skin","&6", "&6&lPICARETA LENDARIA", Material.PLAYER_HEAD),
-
-    ;
+    BOB("bob_skin","&6", "&6&lPICARETA LENDARIA", Material.PLAYER_HEAD);
 
 
     private String name;

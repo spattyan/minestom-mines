@@ -24,6 +24,8 @@ dependencies {
     implementation("redis.clients:jedis:5.2.0")
     implementation("com.google.guava:guava:33.3.1-jre")
 
+    implementation("org.tomlj:tomlj:1.1.1")
+
 
 }
 

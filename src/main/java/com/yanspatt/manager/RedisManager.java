@@ -9,7 +9,7 @@ public class RedisManager {
 
     public void initConnectionPool() {
         // Initialize connection pool
-        JedisPool pool = new JedisPool("31.220.99.137", 6379);
+        JedisPool pool = new JedisPool("localhost", 6379);
 
         this.pool = pool;
         // Get a connection from the pool
