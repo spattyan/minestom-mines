@@ -36,7 +36,7 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                                 event.getPlayer().sendMessage("Olá " + event.getPlayer().getUsername());
                             });
 
-                    event.getPlayer().setGameMode(GameMode.SURVIVAL);
+                    event.getPlayer().setGameMode(GameMode.ADVENTURE);
                     event.getPlayer().setAllowFlying(true);
                     event.getPlayer().setFlying(true);
                     event.getPlayer().getAttribute(Attribute.PLAYER_BLOCK_BREAK_SPEED).setBaseValue((double) 999);

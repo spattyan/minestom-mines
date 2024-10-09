@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MinesServer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MinesServer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prison-mines.main.iml" filepath="$PROJECT_DIR$/.idea/modules/prison-mines.main.iml" />
     </modules>
   </component>
 </project>

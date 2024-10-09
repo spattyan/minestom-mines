@@ -83,12 +83,9 @@ public class MineBlockInventory implements InventoryProvider {
             }
 
             contents.set(5,4, ClickableItem.of(new ItemBuilder(Material.BARRIER).name("&aResetar").lore("","&fBloco atual: &a").build(), event -> {
-                /*if (user.getMine().getBlock() == null) {
-                    player.sendMessage("ESCOLHA UM BLOCO ANTES!!");
-                } else {
+                    MinesServer.getInstance().getMineFactory().populateMine(user,Block.BLUE_TERRACOTTA,true);
                     MinesServer.getInstance().getMineFactory().sendMine(user,player);
                     player.closeInventory();
-                }*/
 
             }));
 
@@ -99,10 +96,10 @@ public class MineBlockInventory implements InventoryProvider {
             }));
 
             contents.set(5,5, ClickableItem.of(new ItemBuilder(Material.GREEN_TERRACOTTA).name("&aAumentar tamanho").build(), event -> {
-                /*boolean result =user.getMine().setSize(user.getMine().getSize()+1);
+                boolean result =user.getMine().setSize(user.getMine().getSize()+1);
                 if (result) {
                     MinesServer.getInstance().getMineFactory().populateMine(user,user.getMine().getBlock(),true);
-                }*/
+                }
 
             }));
         });

@@ -1,10 +1,7 @@
 package com.yanspatt.factory;
 
 import com.google.common.base.Stopwatch;
-import com.google.common.collect.Lists;
 import com.yanspatt.MinesServer;
-import com.yanspatt.controller.UserController;
-import com.yanspatt.model.pickaxe.Pickaxe;
 import com.yanspatt.model.pickaxe.PickaxeSkin;
 import com.yanspatt.model.user.User;
 import com.yanspatt.util.BigNumbers;

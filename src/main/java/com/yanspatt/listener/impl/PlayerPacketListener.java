@@ -24,7 +24,6 @@ public class PlayerPacketListener implements GenericEventListener<PlayerPacketEv
                     if (event.getPacket() instanceof ClientPlayerDiggingPacket) {
 
                         ClientPlayerDiggingPacket packet = (ClientPlayerDiggingPacket) event.getPacket();
-
                         if (packet.status() == ClientPlayerDiggingPacket.Status.STARTED_DIGGING) {
                            event.getInstance().breakBlock(event.getPlayer(),packet.blockPosition(),packet.blockFace());
                         }

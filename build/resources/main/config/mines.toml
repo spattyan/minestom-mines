@@ -1,0 +1,89 @@
+[mine.1]
+name= "Pedreira"
+blocks = "100%STONE"
+requiredlevel = 0
+
+[mine.2]
+name="Pedreira Profunda"
+blocks = "90%STONE 5%COBBLESTONE 5%GRANITE"
+requiredlevel = 10
+
+[mine.3]
+name="Rochas Sedimentares"
+blocks = "2%GRANITE 8%DIORITE 90%ANDESITE"
+requiredlevel = 15
+
+[mine.4]
+name="Jazida de Carvão"
+blocks = "95%COAL_ORE 2.5%COBBLESTONE 2.5%ANDESITE"
+requiredlevel = 20
+
+[mine.5]
+name="Jazida de Ferro"
+blocks = "95%IRON_ORE 2.5%COBBLESTONE 2.5%ANDESITE"
+requiredlevel = 25
+
+[mine.6]
+name="Jazida de Redstone"
+blocks = "95%REDSTONE_ORE 2.5%COBBLESTONE 2.5%ANDESITE"
+requiredlevel = 30
+
+[mine.7]
+name="Jazida de Lapis"
+blocks = "95%LAPIS_ORE 2.5%COBBLESTONE 2.5%ANDESITE"
+requiredlevel = 35
+
+[mine.8]
+name="Jazida de Ouro"
+blocks = "20%GOLD_ORE 30%COBBLESTONE 20%STONE"
+requiredlevel = 40
+
+[mine.9]
+name="Jazida de Diamante"
+blocks = "10%DIAMOND_ORE 40%COBBLESTONE 50%ANDESITE"
+requiredlevel = 45
+
+[mine.10]
+name="Reservatório de Obsidiana"
+blocks = "50%OBSIDIAN 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 50
+
+[mine.11]
+name="Jazida de Carvão Puro"
+blocks = "50%COAL_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 55
+
+[mine.12]
+name="Jazida de Ferro Puro"
+blocks = "50%IRON_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 60
+
+[mine.13]
+name="Jazida de Redstone Pura"
+blocks = "50%REDSTONE_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 65
+
+[mine.14]
+name="Jazida de Lapis Puro"
+blocks = "50%LAPIS_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 70
+
+[mine.15]
+name="Jazida de Ouro Puro"
+blocks = "50%GOLD_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 75
+
+[mine.16]
+name="Jazida de Diamante Puro"
+blocks = "50%DIAMOND_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 80
+
+[mine.17]
+name="Jazida de Esmeralda Pura"
+blocks = "50%EMERALD_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 85
+
+[mine.18]
+name="Jazida de Prismarine Puro"
+blocks = "50%PRISMARINE_BLOCK 30%COBBLESTONE 20%ANDESITE"
+requiredlevel = 90

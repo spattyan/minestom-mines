@@ -6,12 +6,14 @@ import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
 import com.yanspatt.model.mine.packetMine.MinedType;
 import com.yanspatt.model.mine.packetMine.MiningChunkSection;
-import com.yanspatt.repository.redis.UserRedisRepository;
 import com.yanspatt.util.PaletteUtils;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerChunkLoadEvent;
+import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.packet.server.play.MultiBlockChangePacket;
+import net.minestom.server.network.packet.server.play.UpdateLightPacket;
+import net.minestom.server.network.packet.server.play.data.LightData;
 import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,14 +38,6 @@ public class PlayerRenderChunkListener implements GenericEventListener<PlayerChu
                                 sec.getChunkX() == event.getChunkX() && sec.getChunkZ() == event.getChunkZ()
                         ).toList();
 
-                        List<Integer> dontLoad = Lists.newArrayList();
-                        List<MinedBlock> minedBlocks = user.getMine().getMinedBlocks().stream().filter(e -> e.getType().equals(MinedType.LAYER)).toList();
-                        minedBlocks.forEach(block -> {
-                            if (!dontLoad.contains(block.getY())) {
-                                dontLoad.add(block.getY());
-                            }
-                        });
-
                         for (MiningChunkSection miningChunkSection : sectionsToLoad) {
                             List<Map<String, Integer>> blocksList = PaletteUtils.getBlocksInPalette(miningChunkSection.getBlocks());
 
@@ -57,7 +51,7 @@ public class PlayerRenderChunkListener implements GenericEventListener<PlayerChu
                                 int y = block.get("y");
                                 int z = block.get("z");
                                 int stateId = block.get("stateId");
-                                if (dontLoad.contains(block.get("y") + (miningChunkSection.getId() * 16)) && stateId != Block.SMOOTH_STONE.stateId()) {
+                                if (stateId == Block.BARRIER.stateId() && stateId != Block.SMOOTH_STONE.stateId()) {
                                     stateId = 0;
                                 }
                                 long blockLong = encodeBlockInChunkSection(x, y, z, stateId);

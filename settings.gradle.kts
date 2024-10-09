@@ -1,2 +1,2 @@
-rootProject.name = "MinesServer"
+rootProject.name = "prison-mines"
 

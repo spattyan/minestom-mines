@@ -52,11 +52,15 @@ public class UserController {
         Mine mine = new Mine();
         mine.setOrigin(MinesServer.getInstance().getMineFactory().getOrigin());
         mine.setDepth(MinesServer.getInstance().getMineFactory().getDepth());
-        mine.setSize(15);
+        mine.setSize(40);
         user.setMine(mine);
         user.setMineArea(new MineArea(mine.getPosition1(),mine.getPosition2()));
-        MinesServer.getInstance().getMineFactory().populateMine(user, Block.BLUE_TERRACOTTA,true);
+        MinesServer.getInstance().getMineFactory().populateMine(user, Block.DIAMOND_BLOCK,true);
+
+
 
         MinesServer.getInstance().getPickaxeFactory().givePickaxe(user,player);
+
+        update(user);
     }
 }
