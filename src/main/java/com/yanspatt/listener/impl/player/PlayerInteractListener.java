@@ -3,7 +3,6 @@ package com.yanspatt.listener.impl.player;
 import com.yanspatt.controller.UserController;
 import com.yanspatt.inventory.PickaxeUpgradeInventory;
 import com.yanspatt.listener.GenericEventListener;
-import com.yanspatt.repository.redis.UserRedisRepository;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerUseItemEvent;
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerInteractListener implements GenericEventListener<PlayerUseItemEvent> {
 
-    private UserController repository;
+    private final UserController repository;
 
     public PlayerInteractListener(UserController repository) {
         this.repository = repository;

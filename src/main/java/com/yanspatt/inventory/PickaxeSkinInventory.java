@@ -8,10 +8,7 @@ import com.yanspatt.util.inventory.CustomInventory;
 import com.yanspatt.util.inventory.contents.InventoryContents;
 import com.yanspatt.util.inventory.contents.InventoryProvider;
 import net.minestom.server.entity.Player;
-import net.minestom.server.inventory.InventoryType;
 import net.minestom.server.item.Material;
-
-import java.util.List;
 
 public class PickaxeSkinInventory implements InventoryProvider {
 

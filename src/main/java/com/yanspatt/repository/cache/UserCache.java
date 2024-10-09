@@ -8,10 +8,10 @@ import lombok.Getter;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+@Getter
 public class UserCache {
 
-    @Getter
-    private Cache<String, User> cache;
+    private final Cache<String, User> cache;
 
     public UserCache() {
         this.cache = CacheBuilder.newBuilder()

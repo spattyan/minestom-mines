@@ -1,12 +1,9 @@
 package com.yanspatt.controller;
 
-import com.yanspatt.Main;
 import com.yanspatt.MinesServer;
 import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.listener.impl.player.*;
 import com.yanspatt.listener.impl.PlayerPacketListener;
-import com.yanspatt.listener.impl.PlayerPacketOutListener;
-import com.yanspatt.repository.redis.UserRedisRepository;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
 
@@ -22,7 +19,6 @@ public class EventController {
         this.eventListeners = List.of(
                 new AsyncPlayerConfigurationListener(),
                 new PlayerPacketListener(),
-                new PlayerPacketOutListener(),
                 new PlayerSpawnListener(repository),
                 new PlayerBlockBreakListener(repository),
                 new PlayerChatListener(repository),

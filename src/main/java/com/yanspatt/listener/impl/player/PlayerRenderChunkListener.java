@@ -1,6 +1,5 @@
 package com.yanspatt.listener.impl.player;
 
-import com.google.common.collect.Lists;
 import com.yanspatt.controller.UserController;
 import com.yanspatt.listener.GenericEventListener;
 import com.yanspatt.model.mine.packetMine.MinedBlock;
@@ -9,11 +8,8 @@ import com.yanspatt.model.mine.packetMine.MiningChunkSection;
 import com.yanspatt.util.PaletteUtils;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerChunkLoadEvent;
-import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.packet.server.play.MultiBlockChangePacket;
-import net.minestom.server.network.packet.server.play.UpdateLightPacket;
-import net.minestom.server.network.packet.server.play.data.LightData;
 import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,11 +18,17 @@ import java.util.Map;
 
 public class PlayerRenderChunkListener implements GenericEventListener<PlayerChunkLoadEvent> {
 
-    private UserController repository;
+    private final UserController repository;
 
     public PlayerRenderChunkListener(UserController repository) {
         this.repository = repository;
     }
+
+    /*
+
+    WIP CLASS
+
+     */
 
     @Override
     public @NotNull EventListener<PlayerChunkLoadEvent> register() {

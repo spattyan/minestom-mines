@@ -9,7 +9,6 @@ import com.yanspatt.adapter.MineAdapter;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.exceptions.JedisException;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -18,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 public class UserRedisRepository {
 
 
-    private Gson gson;
-    private JedisPool pool;
+    private final Gson gson;
+    private final JedisPool pool;
 
     public UserRedisRepository(JedisPool redisPool) {
         this.pool = redisPool;

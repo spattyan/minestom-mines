@@ -42,10 +42,6 @@ public class PlayerSpawnListener implements GenericEventListener<PlayerSpawnEven
                     event.getPlayer().getAttribute(Attribute.PLAYER_BLOCK_BREAK_SPEED).setBaseValue((double) 999);
                     MinesServer.getInstance().getUserController().spawnPlayer(getUser.get(),event.getPlayer());
 
-                    //MinesServer.getInstance().getScoreboard().addSidebar(event.getPlayer());
-                    //MinesServer.getInstance().getMineFactory().populateMine(user.get(),user.get().getMine().getBlock(),false);
-                    //MinesServer.getInstance().getMineFactory().sendMine(user.get(),event.getPlayer());
-
                 })
                 .build();
     }

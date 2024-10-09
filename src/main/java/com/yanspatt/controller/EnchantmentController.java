@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class EnchantmentController {
 
-    private Map<EnchantmentType, CustomEnchantment> enchantments;
+    private final Map<EnchantmentType, CustomEnchantment> enchantments;
 
     public EnchantmentController() {
         enchantments = Maps.newHashMap();
